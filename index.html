@@ -1,0 +1,1669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="description" content="NIMAH OS X — Next-generation AI operating system. Chat with the most powerful AI models including GPT-4o, Claude, Gemini, Llama 3 and more.">
+<meta name="keywords" content="AI chat, artificial intelligence, GPT-4o, Claude AI, Gemini AI, Llama 3, AI assistant, chatbot, NIMAH OS X">
+<meta name="author" content="Nimah Developer">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="NIMAH OS X | Pro AI Operating System">
+<meta property="og:description" content="Next-generation AI platform with ultra-fast inference, multiple AI models, and a stunning futuristic interface.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#00d2ff">
+<title id="site-title">NIMAH OS X | PRO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Orbitron:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root{
+  --acc:#00d2ff;--acc2:#7b2fff;--acc-g:rgba(0,210,255,0.35);--acc2-g:rgba(123,47,255,0.35);
+  --online:#00ffaa;--warn:#ffb300;--err:#ff4466;--text:#fff;--dim:#6b7280;--mid:#9ca3af;
+  --border:rgba(0,210,255,0.15);--border2:rgba(255,255,255,0.07);
+  --glass:rgba(255,255,255,0.025);--glass2:rgba(0,210,255,0.05);--tr:0.28s cubic-bezier(0.4,0,0.2,1);
+  --radius:20px;--max-w:940px;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{height:100%;width:100%;overflow:hidden;}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:#000;color:var(--text);display:flex;flex-direction:column;position:relative;}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(ellipse 100% 80% at -5% 110%,rgba(0,70,130,0.6) 0%,transparent 55%),
+  radial-gradient(ellipse 70% 70% at 108% -8%,rgba(80,0,150,0.45) 0%,transparent 55%),
+  radial-gradient(ellipse 50% 50% at 50% 50%,rgba(0,210,255,0.02) 0%,transparent 80%);}
+::-webkit-scrollbar{width:3px;}::-webkit-scrollbar-track{background:transparent;}::-webkit-scrollbar-thumb{background:rgba(0,210,255,0.25);border-radius:3px;}
+
+/* SPLASH */
+#splash{position:fixed;inset:0;z-index:99999;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:30px;transition:opacity 1s ease,visibility 1s ease;}
+#splash.gone{opacity:0;visibility:hidden;pointer-events:none;}
+.sp-logo{font-family:'Orbitron',monospace;font-size:clamp(1.6rem,5.5vw,2.8rem);font-weight:900;letter-spacing:5px;animation:spPulse 2s ease infinite;}
+.sp-logo span{color:var(--acc);text-shadow:0 0 40px var(--acc-g),0 0 80px rgba(0,210,255,0.15);}
+@keyframes spPulse{0%,100%{opacity:1}50%{opacity:.82}}
+.sp-rings{position:relative;width:76px;height:76px;}
+.sp-r1{position:absolute;inset:0;border-radius:50%;border:2px solid rgba(0,210,255,0.12);border-top-color:var(--acc);animation:spin .85s linear infinite;}
+.sp-r2{position:absolute;inset:10px;border-radius:50%;border:2px solid rgba(123,47,255,0.12);border-bottom-color:var(--acc2);animation:spin 1.3s linear infinite reverse;}
+.sp-dot{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:10px;height:10px;border-radius:50%;background:var(--acc);box-shadow:0 0 14px var(--acc-g);}
+@keyframes spin{to{transform:rotate(360deg)}}
+.sp-bar-wrap{width:220px;height:2px;background:rgba(255,255,255,0.05);border-radius:2px;overflow:hidden;}
+.sp-bar{height:100%;width:0;background:linear-gradient(90deg,var(--acc),var(--acc2));animation:spBar 2.2s ease forwards;}
+@keyframes spBar{0%{width:0}40%{width:55%}85%{width:92%}100%{width:100%}}
+.sp-txt{font-family:'JetBrains Mono',monospace;font-size:.55rem;color:var(--dim);letter-spacing:3px;text-transform:uppercase;}
+.sp-txt .blink{animation:blink 1s infinite;opacity:0;}
+.sp-txt .blink:nth-child(2){animation-delay:.2s;}.sp-txt .blink:nth-child(3){animation-delay:.4s;}
+@keyframes blink{0%,80%,100%{opacity:0}40%{opacity:1}}
+
+/* SUCCESS */
+#success-ov{position:fixed;inset:0;background:rgba(0,0,0,.96);z-index:50000;display:none;flex-direction:column;align-items:center;justify-content:center;gap:16px;backdrop-filter:blur(24px);}
+.succ-ring{width:82px;height:82px;border-radius:50%;position:relative;animation:spin 1.1s linear infinite;}
+.succ-ring::before{content:'';position:absolute;inset:-2px;border-radius:50%;background:conic-gradient(from 0deg,var(--acc),var(--acc2),transparent,transparent);-webkit-mask:radial-gradient(circle at center,transparent 34px,#fff 35px);mask:radial-gradient(circle at center,transparent 34px,#fff 35px);}
+.succ-ring i{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:1.6rem;background:linear-gradient(135deg,var(--acc),var(--acc2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.succ-txt{font-family:'Orbitron',monospace;font-size:.85rem;font-weight:700;letter-spacing:3px;}.succ-txt span{color:var(--acc);}
+
+/* AUTH */
+#auth-screen{position:fixed;inset:0;z-index:10000;display:flex;align-items:center;justify-content:center;overflow-y:auto;padding:20px;transition:opacity .8s ease,visibility .8s ease;
+  background:radial-gradient(ellipse 80% 80% at 15% 105%,rgba(0,50,100,0.65) 0%,transparent 55%),radial-gradient(ellipse 65% 65% at 88% 0%,rgba(70,0,140,0.5) 0%,transparent 55%),#000;}
+#auth-screen.gone{opacity:0;visibility:hidden;pointer-events:none;}
+.auth-card{width:100%;max-width:400px;padding:44px 36px;border-radius:28px;background:rgba(5,5,13,.92);border:1px solid rgba(0,210,255,.22);backdrop-filter:blur(50px);box-shadow:0 40px 100px rgba(0,0,0,.85),0 0 80px rgba(0,210,255,.04),inset 0 1px 0 rgba(255,255,255,.05);animation:cardIn .6s cubic-bezier(.34,1.4,.64,1) both;position:relative;overflow:hidden;}
+.auth-card::before{content:'';position:absolute;top:-1px;left:15%;right:15%;height:1px;background:linear-gradient(90deg,transparent,var(--acc),var(--acc2),transparent);opacity:.55;}
+@keyframes cardIn{from{opacity:0;transform:translateY(48px) scale(.93)}to{opacity:1;transform:none}}
+.auth-eye{font-family:'JetBrains Mono',monospace;font-size:.52rem;color:var(--acc);letter-spacing:3px;text-transform:uppercase;margin-bottom:10px;opacity:.7;}
+.auth-logo{font-family:'Orbitron',monospace;font-size:1.45rem;font-weight:900;letter-spacing:2px;margin-bottom:30px;}
+.auth-logo span{color:var(--acc);text-shadow:0 0 25px var(--acc-g);}
+.auth-logo small{font-size:.48em;color:var(--dim);font-weight:400;display:block;letter-spacing:3px;margin-top:4px;}
+.inp-grp{background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.07);border-radius:15px;padding:13px 17px;display:flex;align-items:center;gap:12px;margin-bottom:12px;transition:var(--tr);}
+.inp-grp:focus-within{border-color:var(--acc);background:rgba(0,210,255,.03);box-shadow:0 0 0 3px rgba(0,210,255,.08),0 0 18px rgba(0,210,255,.09);transform:translateY(-1px);}
+.inp-grp i{color:var(--dim);font-size:.85rem;width:15px;flex-shrink:0;transition:var(--tr);}
+.inp-grp:focus-within i{color:var(--acc);}
+.inp-grp input{flex:1;background:none;border:none;color:#fff;outline:none;font-size:.88rem;font-family:'Plus Jakarta Sans',sans-serif;min-width:0;}
+.inp-grp input::placeholder{color:rgba(255,255,255,.22);}
+.btn-auth{width:100%;padding:15px;border:none;border-radius:15px;background:linear-gradient(135deg,var(--acc) 0%,#009fc2 100%);color:#000;font-weight:800;font-size:.82rem;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:var(--tr);font-family:'Plus Jakarta Sans',sans-serif;box-shadow:0 6px 28px rgba(0,210,255,.35);position:relative;overflow:hidden;}
+.btn-auth:hover{transform:translateY(-2px);box-shadow:0 10px 38px rgba(0,210,255,.52);}
+.btn-auth:disabled{opacity:.6;cursor:not-allowed;transform:none;}
+.auth-switch{margin-top:20px;text-align:center;font-size:.78rem;color:var(--dim);cursor:pointer;}
+.auth-switch span{color:var(--acc);font-weight:700;}
+.auth-div{display:flex;align-items:center;gap:12px;margin:18px 0;}
+.auth-div::before,.auth-div::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.05);}
+.auth-div span{font-size:.62rem;color:var(--dim);font-family:'JetBrains Mono',monospace;white-space:nowrap;}
+.auth-err-box{background:rgba(255,68,102,.08);border:1px solid rgba(255,68,102,.25);border-radius:12px;padding:12px 15px;margin-bottom:14px;display:none;align-items:flex-start;gap:10px;animation:errShake .4s ease;}
+.auth-err-box.show{display:flex;}
+@keyframes errShake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+.auth-err-box i{color:var(--err);font-size:.85rem;flex-shrink:0;margin-top:1px;}
+.auth-err-box .err-title{font-size:.76rem;font-weight:700;color:var(--err);margin-bottom:3px;}
+.auth-err-box .err-msg{font-size:.71rem;color:rgba(255,68,102,.8);line-height:1.45;}
+.auth-err-box .err-action{font-size:.7rem;color:var(--acc);font-weight:700;cursor:pointer;margin-top:5px;display:inline-block;text-decoration:underline;}
+.auth-ok-box{background:rgba(0,255,170,.06);border:1px solid rgba(0,255,170,.2);border-radius:12px;padding:12px 15px;margin-bottom:14px;display:none;align-items:center;gap:10px;}
+.auth-ok-box.show{display:flex;}
+.auth-ok-box i{color:var(--online);font-size:.85rem;flex-shrink:0;}
+.auth-ok-box span{font-size:.74rem;color:rgba(0,255,170,.85);line-height:1.45;}
+
+/* ADMIN PW MODAL */
+#admin-pw-modal{position:fixed;inset:0;z-index:40000;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(0,0,0,.94);backdrop-filter:blur(30px);}
+#admin-pw-modal.show{display:flex;}
+.apw-card{width:100%;max-width:370px;background:rgba(5,5,13,.97);border:1px solid rgba(0,210,255,.25);border-radius:24px;padding:40px 30px;animation:cardIn .45s cubic-bezier(.34,1.4,.64,1) both;position:relative;overflow:hidden;box-shadow:0 40px 80px rgba(0,0,0,.92),0 0 60px rgba(0,210,255,.07);}
+.apw-card::before{content:'';position:absolute;top:-1px;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,var(--acc),transparent);}
+.apw-icon{width:64px;height:64px;border-radius:20px;background:linear-gradient(135deg,rgba(0,210,255,.14),rgba(123,47,255,.14));border:1px solid rgba(0,210,255,.2);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:1.45rem;color:var(--acc);box-shadow:0 0 30px rgba(0,210,255,.1);animation:apwPulse 2s ease infinite;}
+@keyframes apwPulse{0%,100%{box-shadow:0 0 20px rgba(0,210,255,.1)}50%{box-shadow:0 0 40px rgba(0,210,255,.25)}}
+.apw-title{text-align:center;font-family:'Orbitron',monospace;font-size:.88rem;font-weight:700;letter-spacing:2px;margin-bottom:6px;}
+.apw-sub{text-align:center;font-size:.73rem;color:var(--dim);margin-bottom:26px;line-height:1.55;}
+.apw-err{background:rgba(255,68,102,.1);border:1px solid rgba(255,68,102,.3);border-radius:10px;padding:9px 14px;font-size:.73rem;color:var(--err);text-align:center;margin-top:10px;display:none;}
+.apw-btns{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px;}
+.btn-cancel{padding:13px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:13px;color:var(--dim);cursor:pointer;font-weight:600;font-size:.78rem;transition:var(--tr);font-family:'Plus Jakarta Sans',sans-serif;}
+.btn-cancel:hover{background:rgba(255,255,255,.08);}
+.btn-unlock{padding:13px;background:linear-gradient(135deg,var(--acc),#009fc2);border:none;border-radius:13px;color:#000;cursor:pointer;font-weight:800;font-size:.78rem;transition:var(--tr);font-family:'Plus Jakarta Sans',sans-serif;letter-spacing:1px;box-shadow:0 4px 20px rgba(0,210,255,.3);}
+.btn-unlock:hover{transform:translateY(-1px);box-shadow:0 8px 30px rgba(0,210,255,.5);}
+
+/* HEADER */
+header{padding:15px 22px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,.05);background:rgba(0,0,0,.65);backdrop-filter:blur(24px);flex-shrink:0;position:relative;z-index:50;}
+.h-brand{font-family:'Orbitron',monospace;font-size:.88rem;font-weight:800;letter-spacing:2px;}
+.h-brand span{color:var(--acc);text-shadow:0 0 20px var(--acc-g);}
+.h-ver{font-family:'JetBrains Mono',monospace;font-size:.46rem;color:var(--acc);letter-spacing:2px;opacity:.55;margin-top:3px;}
+.h-right{display:flex;align-items:center;gap:10px;}
+.status-pill{font-family:'Orbitron',monospace;color:var(--online);font-size:.52rem;font-weight:700;letter-spacing:1px;background:rgba(0,255,170,.06);border:1px solid rgba(0,255,170,.18);padding:5px 11px;border-radius:20px;animation:sPulse 3s ease infinite;}
+@keyframes sPulse{0%,100%{box-shadow:none}50%{box-shadow:0 0 12px rgba(0,255,170,.14)}}
+.h-btn{width:38px;height:38px;border-radius:11px;border:1px solid var(--border2);background:var(--glass);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--dim);transition:var(--tr);position:relative;}
+.h-btn:hover{border-color:var(--acc);color:var(--acc);background:var(--glass2);}
+.h-btn .notif-dot{position:absolute;top:6px;right:6px;width:7px;height:7px;border-radius:50%;background:var(--err);border:2px solid #000;display:none;}
+.h-btn .notif-dot.show{display:block;}
+
+/* MAIN */
+#main-content{flex:1;overflow-y:auto;padding:26px 18px 150px;max-width:var(--max-w);margin:0 auto;width:100%;position:relative;z-index:1;}
+
+/* HERO */
+.hero{margin-bottom:30px;}
+.hero h2{font-size:clamp(1.8rem,5vw,2.7rem);font-weight:800;letter-spacing:-.5px;line-height:1.2;}
+.hero h2 span{background:linear-gradient(135deg,var(--acc),var(--acc2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.hero p{margin-top:10px;color:var(--dim);font-size:.83rem;}
+
+/* QUICK GRID */
+.q-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:13px;margin-top:22px;}
+.q-tile{background:rgba(7,7,15,.92);border:1px solid rgba(255,255,255,.055);border-radius:var(--radius);padding:22px 16px;cursor:pointer;transition:var(--tr);position:relative;overflow:hidden;}
+.q-tile::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,210,255,.07),rgba(123,47,255,.04));opacity:0;transition:var(--tr);}
+.q-tile:hover{border-color:rgba(0,210,255,.32);transform:translateY(-5px);box-shadow:0 18px 44px rgba(0,0,0,.55),0 0 22px rgba(0,210,255,.07);}
+.q-tile:hover::before{opacity:1;}
+.q-tile:active{transform:translateY(-2px);}
+.q-tile i{font-size:1.2rem;color:var(--acc);margin-bottom:13px;display:block;}
+.q-tile h3{font-size:.78rem;font-weight:700;margin-bottom:5px;}
+.q-tile p{font-size:.66rem;color:var(--dim);line-height:1.45;}
+
+/* CHAT HISTORY SIDEBAR TOGGLE */
+.chat-controls{display:flex;align-items:center;gap:10px;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,.04);}
+.chat-controls-title{font-family:'Orbitron',monospace;font-size:.68rem;font-weight:700;letter-spacing:2px;color:var(--mid);flex:1;}
+.btn-new-chat{padding:7px 14px;background:linear-gradient(135deg,rgba(0,210,255,.15),rgba(0,210,255,.05));border:1px solid rgba(0,210,255,.22);border-radius:10px;color:var(--acc);font-size:.7rem;font-weight:700;cursor:pointer;transition:var(--tr);font-family:'Plus Jakarta Sans',sans-serif;display:flex;align-items:center;gap:6px;}
+.btn-new-chat:hover{background:rgba(0,210,255,.2);}
+
+/* HISTORY LIST */
+.history-section{margin-bottom:28px;}
+.history-section-title{font-family:'JetBrains Mono',monospace;font-size:.48rem;color:rgba(255,255,255,.22);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;}
+.history-item{padding:11px 14px;border-radius:12px;cursor:pointer;transition:var(--tr);border:1px solid transparent;margin-bottom:5px;display:flex;align-items:flex-start;gap:10px;}
+.history-item:hover{background:rgba(255,255,255,.03);border-color:rgba(0,210,255,.1);}
+.history-item.active{background:rgba(0,210,255,.07);border-color:rgba(0,210,255,.2);}
+.history-item-icon{width:28px;height:28px;border-radius:8px;background:rgba(0,210,255,.1);display:flex;align-items:center;justify-content:center;font-size:.68rem;color:var(--acc);flex-shrink:0;margin-top:1px;}
+.history-item-content{flex:1;min-width:0;}
+.history-item-title{font-size:.73rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:3px;}
+.history-item-meta{font-size:.62rem;color:var(--dim);}
+.history-item-del{width:22px;height:22px;border-radius:6px;background:transparent;border:none;color:var(--dim);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.62rem;transition:var(--tr);flex-shrink:0;opacity:0;}
+.history-item:hover .history-item-del{opacity:1;}
+.history-item-del:hover{background:rgba(255,68,102,.1);color:var(--err);}
+.empty-history{padding:20px;text-align:center;font-size:.72rem;color:var(--dim);line-height:1.6;}
+
+/* CHAT */
+#chat-view{display:none;flex-direction:column;gap:13px;padding-bottom:22px;}
+
+/* CHAT LAYOUT WITH SIDEBAR */
+.chat-layout{display:grid;grid-template-columns:240px 1fr;gap:0;position:relative;}
+
+/* Message bubbles */
+.bubble{max-width:86%;padding:14px 20px;border-radius:20px;font-size:.87rem;line-height:1.62;word-wrap:break-word;animation:bubIn .28s ease;}
+@keyframes bubIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.bubble.ai{background:rgba(255,255,255,.028);border:1px solid rgba(0,210,255,.1);align-self:flex-start;border-bottom-left-radius:5px;backdrop-filter:blur(10px);}
+.bubble.user{background:linear-gradient(135deg,var(--acc),#0092be);color:#000;font-weight:700;align-self:flex-end;border-bottom-right-radius:5px;box-shadow:0 4px 22px rgba(0,210,255,.3);}
+.bubble.err-bub{background:rgba(255,68,102,.08);border:1px solid rgba(255,68,102,.2);color:var(--err);align-self:flex-start;}
+.bubble-wrap{display:flex;flex-direction:column;gap:4px;}
+.bubble-wrap.ai-wrap{align-self:flex-start;}
+.bubble-wrap.user-wrap{align-self:flex-end;}
+.bubble-meta{font-size:.58rem;color:var(--dim);font-family:'JetBrains Mono',monospace;padding:0 4px;}
+.bubble-meta.right{text-align:right;}
+.typing span{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--acc);margin:0 2px;animation:typDot 1.2s infinite;}
+.typing span:nth-child(2){animation-delay:.2s;}.typing span:nth-child(3){animation-delay:.4s;}
+@keyframes typDot{0%,80%,100%{transform:scale(.7);opacity:.3}40%{transform:scale(1.2);opacity:1}}
+
+/* AI Response formatting */
+.bubble.ai pre{background:rgba(0,0,0,.4);border:1px solid rgba(0,210,255,.12);border-radius:10px;padding:14px;margin:10px 0;overflow-x:auto;font-family:'JetBrains Mono',monospace;font-size:.78rem;line-height:1.55;}
+.bubble.ai code{font-family:'JetBrains Mono',monospace;font-size:.83em;background:rgba(0,210,255,.08);padding:2px 6px;border-radius:5px;color:var(--acc);}
+.bubble.ai pre code{background:none;padding:0;color:rgba(255,255,255,.85);}
+.bubble.ai strong{color:#fff;font-weight:700;}
+.bubble.ai em{color:rgba(255,255,255,.75);font-style:italic;}
+.bubble.ai h1,.bubble.ai h2,.bubble.ai h3{font-family:'Orbitron',monospace;letter-spacing:1px;margin:14px 0 8px;color:var(--acc);}
+.bubble.ai h1{font-size:1.05rem;}.bubble.ai h2{font-size:.95rem;}.bubble.ai h3{font-size:.85rem;}
+.bubble.ai ul,.bubble.ai ol{padding-left:20px;margin:8px 0;}
+.bubble.ai li{margin-bottom:4px;}
+.bubble.ai hr{border:none;border-top:1px solid rgba(255,255,255,.08);margin:12px 0;}
+.bubble.ai blockquote{border-left:3px solid var(--acc);padding-left:14px;color:var(--mid);margin:10px 0;font-style:italic;}
+.bubble.ai table{width:100%;border-collapse:collapse;margin:12px 0;font-size:.8rem;}
+.bubble.ai th{background:rgba(0,210,255,.1);border:1px solid rgba(0,210,255,.15);padding:8px 12px;text-align:left;font-size:.72rem;color:var(--acc);font-family:'JetBrains Mono',monospace;}
+.bubble.ai td{border:1px solid rgba(255,255,255,.06);padding:8px 12px;}
+.bubble.ai tr:hover td{background:rgba(255,255,255,.02);}
+
+/* Copy button */
+.bubble-actions{display:flex;gap:6px;margin-top:6px;opacity:0;transition:var(--tr);}
+.bubble-wrap:hover .bubble-actions{opacity:1;}
+.bubble-act-btn{padding:5px 10px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:7px;color:var(--dim);font-size:.62rem;cursor:pointer;transition:var(--tr);font-family:'JetBrains Mono',monospace;}
+.bubble-act-btn:hover{color:var(--acc);border-color:var(--acc);background:rgba(0,210,255,.06);}
+
+/* INPUT BAR */
+.input-wrap{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);width:calc(100% - 28px);max-width:770px;z-index:200;}
+.input-box{background:rgba(5,5,13,.96);border:1px solid rgba(0,210,255,.22);border-radius:22px;padding:10px 12px;display:flex;align-items:flex-end;gap:9px;backdrop-filter:blur(32px);box-shadow:0 8px 44px rgba(0,0,0,.65),0 0 40px rgba(0,210,255,.06);transition:var(--tr);}
+.input-box:focus-within{border-color:rgba(0,210,255,.45);box-shadow:0 8px 44px rgba(0,0,0,.65),0 0 40px rgba(0,210,255,.18);}
+#user-input{flex:1;background:none;border:none;color:#fff;outline:none;resize:none;font-size:.9rem;font-family:'Plus Jakarta Sans',sans-serif;max-height:140px;line-height:1.55;padding:5px 2px;min-width:0;}
+#user-input::placeholder{color:rgba(255,255,255,.2);}
+.ic-btn{width:44px;height:44px;border-radius:13px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:var(--tr);flex-shrink:0;border:none;}
+.ic-mic{background:rgba(0,210,255,.06);border:1px solid rgba(0,210,255,.16);color:var(--dim);}
+.ic-mic:hover,.ic-mic.active{color:var(--acc);border-color:var(--acc);background:rgba(0,210,255,.1);}
+.ic-mic.active{animation:micPulse 1s infinite;}
+@keyframes micPulse{0%,100%{box-shadow:0 0 0 0 rgba(0,210,255,.4)}50%{box-shadow:0 0 0 8px rgba(0,210,255,0)}}
+.ic-send{background:linear-gradient(135deg,var(--acc),#009fc2);color:#000;box-shadow:0 4px 16px rgba(0,210,255,.35);}
+.ic-send:hover{transform:scale(1.08);box-shadow:0 6px 24px rgba(0,210,255,.55);}
+.ic-send:disabled{opacity:.4;cursor:not-allowed;transform:none;}
+.input-toolbar{display:flex;align-items:center;gap:8px;padding:0 4px 4px;border-top:1px solid rgba(255,255,255,.04);margin-top:6px;padding-top:8px;}
+.input-toolbar-btn{padding:4px 10px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:7px;color:var(--dim);font-size:.62rem;cursor:pointer;transition:var(--tr);font-family:'JetBrains Mono',monospace;white-space:nowrap;}
+.input-toolbar-btn:hover{color:var(--acc);border-color:rgba(0,210,255,.25);}
+.input-toolbar-btn.active{color:var(--acc);border-color:rgba(0,210,255,.35);background:rgba(0,210,255,.07);}
+.char-counter{margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:.55rem;color:var(--dim);}
+
+/* FOOTER */
+.footer-bar{position:fixed;bottom:0;left:0;right:0;text-align:center;padding:5px 8px 6px;font-family:'JetBrains Mono',monospace;font-size:.42rem;color:rgba(255,255,255,.14);letter-spacing:1.5px;text-transform:uppercase;z-index:99;pointer-events:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+#trigger-2026{cursor:pointer;pointer-events:all;transition:color .2s;display:inline;}
+#trigger-2026:hover{color:rgba(0,210,255,.5);}
+
+/* ADMIN DASHBOARD */
+#admin-dash{position:fixed;inset:0;z-index:30000;display:none;background:radial-gradient(ellipse 70% 60% at 0% 100%,rgba(0,35,70,.75) 0%,transparent 55%),radial-gradient(ellipse 50% 50% at 100% 0%,rgba(55,0,95,.55) 0%,transparent 55%),#000;}
+#admin-dash.show{display:flex;flex-direction:column;}
+.adm-hdr{height:56px;display:flex;align-items:stretch;flex-shrink:0;border-bottom:1px solid rgba(255,255,255,.055);background:rgba(0,0,0,.72);backdrop-filter:blur(22px);position:relative;z-index:10;}
+.adm-hdr-left{display:flex;align-items:center;gap:14px;padding:0 20px;border-right:1px solid rgba(255,255,255,.055);min-width:236px;flex-shrink:0;}
+.adm-brand{font-family:'Orbitron',monospace;font-size:.72rem;font-weight:800;letter-spacing:2px;}
+.adm-brand span{color:var(--acc);}
+.adm-hdr-mid{flex:1;display:flex;align-items:center;padding:0 22px;gap:12px;}
+.adm-hdr-title{font-family:'Orbitron',monospace;font-size:.78rem;font-weight:700;letter-spacing:1px;color:var(--dim);}
+.adm-hdr-right{display:flex;align-items:center;padding:0 16px;gap:10px;margin-left:auto;}
+.adm-online-dot{width:7px;height:7px;border-radius:50%;background:var(--online);box-shadow:0 0 8px var(--online);animation:dotP 2s infinite;}
+@keyframes dotP{0%,100%{opacity:1}50%{opacity:.5}}
+.adm-online-txt{font-family:'JetBrains Mono',monospace;font-size:.56rem;color:var(--online);letter-spacing:1px;}
+.adm-body{flex:1;display:grid;grid-template-columns:236px 1fr;overflow:hidden;}
+.adm-sb{background:rgba(3,3,10,.97);border-right:1px solid rgba(255,255,255,.04);display:flex;flex-direction:column;overflow:hidden;}
+.adm-sb-scroll{flex:1;overflow-y:auto;padding:10px 9px;}
+.adm-sb-lbl{font-family:'JetBrains Mono',monospace;font-size:.44rem;color:rgba(255,255,255,.22);letter-spacing:2px;text-transform:uppercase;padding:14px 10px 6px;}
+.adm-nav{padding:9px 13px;border-radius:11px;cursor:pointer;color:var(--dim);transition:var(--tr);font-weight:600;font-size:.73rem;display:flex;align-items:center;gap:10px;margin-bottom:1px;}
+.adm-nav i{width:14px;font-size:.75rem;flex-shrink:0;opacity:.65;}
+.adm-nav:hover{background:rgba(255,255,255,.04);color:var(--text);}
+.adm-nav.on{background:linear-gradient(135deg,rgba(0,210,255,.14),rgba(0,210,255,.05));color:var(--acc);border:1px solid rgba(0,210,255,.16);}
+.adm-nav.on i{opacity:1;}
+.adm-sb-foot{padding:13px 9px;border-top:1px solid rgba(255,255,255,.04);}
+.btn-exit{width:100%;padding:11px;background:rgba(255,68,102,.07);border:1px solid rgba(255,68,102,.18);border-radius:11px;color:var(--err);cursor:pointer;font-weight:700;font-size:.73rem;letter-spacing:1px;text-transform:uppercase;transition:var(--tr);font-family:'Plus Jakarta Sans',sans-serif;display:flex;align-items:center;justify-content:center;gap:8px;}
+.btn-exit:hover{background:rgba(255,68,102,.16);box-shadow:0 0 20px rgba(255,68,102,.14);}
+.adm-main{overflow-y:auto;}
+.adm-content{padding:30px 34px;max-width:820px;}
+.adm-sec{display:none;animation:secIn .25s ease;}
+.adm-sec.on{display:block;}
+@keyframes secIn{from{opacity:0;transform:translateX(12px)}to{opacity:1;transform:none}}
+.adm-sec-head{margin-bottom:22px;}
+.adm-sec-head h2{font-family:'Orbitron',monospace;font-size:.83rem;font-weight:700;letter-spacing:2px;color:var(--acc);}
+.adm-sec-head p{font-size:.74rem;color:var(--dim);margin-top:5px;line-height:1.52;}
+.adm-card{background:rgba(5,5,13,.88);border:1px solid rgba(255,255,255,.065);border-radius:18px;padding:22px;margin-bottom:14px;transition:border-color .2s;}
+.adm-card:hover{border-color:rgba(0,210,255,.11);}
+.adm-card-hd{font-weight:700;font-size:.73rem;color:var(--mid);text-transform:uppercase;letter-spacing:1px;margin-bottom:17px;display:flex;align-items:center;gap:8px;}
+.adm-card-hd i{color:var(--acc);font-size:.77rem;}
+.adm-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;}
+.adm-grid.one{grid-template-columns:1fr;}
+.adm-g{display:flex;flex-direction:column;gap:6px;}
+.adm-g.full{grid-column:1/-1;}
+.adm-lbl{font-family:'JetBrains Mono',monospace;font-size:.55rem;color:var(--acc);letter-spacing:1.5px;text-transform:uppercase;font-weight:600;}
+.adm-inp{width:100%;padding:11px 14px;background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.065);border-radius:11px;color:#fff;outline:none;font-size:.82rem;font-family:'Plus Jakarta Sans',sans-serif;transition:var(--tr);}
+.adm-inp:focus{border-color:var(--acc);box-shadow:0 0 0 3px rgba(0,210,255,.08);}
+.adm-inp::placeholder{color:rgba(255,255,255,.18);}
+.adm-ta{resize:vertical;min-height:100px;line-height:1.55;}
+.adm-sel{-webkit-appearance:none;appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%236b7280' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;}
+.adm-color-row{display:flex;gap:9px;align-items:center;}
+.adm-color-row input[type=color]{width:44px;height:40px;border:1px solid rgba(255,255,255,.09);border-radius:9px;background:none;cursor:pointer;padding:3px;flex-shrink:0;}
+.adm-color-row .adm-inp{flex:1;}
+.save-row{display:flex;gap:10px;margin-top:8px;flex-wrap:wrap;align-items:center;}
+.btn-save{padding:11px 26px;background:linear-gradient(135deg,var(--acc),#009fc2);color:#000;border:none;border-radius:12px;cursor:pointer;font-weight:800;font-size:.73rem;letter-spacing:1.5px;text-transform:uppercase;transition:var(--tr);font-family:'Plus Jakarta Sans',sans-serif;box-shadow:0 4px 18px rgba(0,210,255,.26);display:flex;align-items:center;gap:8px;}
+.btn-save:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,210,255,.44);}
+.btn-sec{padding:11px 20px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:12px;color:var(--mid);cursor:pointer;font-weight:600;font-size:.73rem;transition:var(--tr);font-family:'Plus Jakarta Sans',sans-serif;}
+.btn-sec:hover{background:rgba(255,255,255,.08);}
+
+/* API PROVIDER SELECTOR */
+.api-provider-tabs{display:flex;gap:8px;margin-bottom:16px;}
+.ap-tab{flex:1;padding:10px;border-radius:11px;border:1px solid rgba(255,255,255,.09);background:rgba(0,0,0,.4);color:var(--dim);cursor:pointer;font-weight:700;font-size:.72rem;text-align:center;transition:var(--tr);font-family:'JetBrains Mono',monospace;letter-spacing:1px;}
+.ap-tab.on{border-color:var(--acc);background:rgba(0,210,255,.1);color:var(--acc);}
+.ap-tab:hover:not(.on){background:rgba(255,255,255,.05);}
+
+/* MODEL PICKER CARDS */
+.model-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:11px;}
+.model-card{padding:16px;border:1px solid rgba(255,255,255,.07);border-radius:14px;cursor:pointer;transition:var(--tr);background:rgba(0,0,0,.38);display:flex;flex-direction:column;gap:6px;position:relative;overflow:hidden;}
+.model-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,210,255,.06),transparent);opacity:0;transition:var(--tr);}
+.model-card:hover{border-color:rgba(0,210,255,.28);transform:translateY(-2px);}
+.model-card:hover::before{opacity:1;}
+.model-card.sel{border-color:var(--acc);background:rgba(0,210,255,.08);}
+.model-card.sel::before{opacity:1;}
+.model-card-icon{font-size:1.1rem;color:var(--acc);margin-bottom:2px;}
+.model-card-name{font-weight:700;font-size:.78rem;}
+.model-card-provider{font-size:.62rem;color:var(--dim);font-family:'JetBrains Mono',monospace;}
+.model-card-badge{font-size:.58rem;padding:3px 8px;border-radius:20px;font-weight:700;font-family:'JetBrains Mono',monospace;letter-spacing:1px;align-self:flex-start;margin-top:2px;}
+.badge-fast{background:rgba(0,210,255,.1);color:var(--acc);border:1px solid rgba(0,210,255,.2);}
+.badge-smart{background:rgba(123,47,255,.1);color:#b78fff;border:1px solid rgba(123,47,255,.2);}
+.badge-free{background:rgba(0,255,170,.08);color:var(--online);border:1px solid rgba(0,255,170,.2);}
+.badge-powerful{background:rgba(255,179,0,.08);color:var(--warn);border:1px solid rgba(255,179,0,.2);}
+.model-card-sel-dot{position:absolute;top:12px;right:12px;width:8px;height:8px;border-radius:50%;background:var(--acc);box-shadow:0 0 10px var(--acc);display:none;}
+.model-card.sel .model-card-sel-dot{display:block;}
+
+/* User list */
+.user-row{padding:14px 20px;border-bottom:1px solid rgba(255,255,255,.04);display:flex;align-items:center;gap:13px;transition:var(--tr);}
+.user-row:last-child{border-bottom:none;}
+.user-row:hover{background:rgba(255,255,255,.02);}
+.user-av{width:36px;height:36px;border-radius:11px;background:linear-gradient(135deg,rgba(0,210,255,.2),rgba(123,47,255,.2));display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.85rem;color:var(--acc);flex-shrink:0;}
+.user-info .un{font-weight:700;font-size:.78rem;}.user-info .ue{font-size:.68rem;color:var(--dim);}
+.user-badge{margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:.5rem;color:var(--online);background:rgba(0,255,170,.07);border:1px solid rgba(0,255,170,.18);padding:3px 9px;border-radius:20px;flex-shrink:0;}
+
+/* SYS STATS */
+.sys-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(158px,1fr));gap:12px;}
+.sys-card{background:rgba(0,0,0,.45);border:1px solid rgba(255,255,255,.055);border-radius:14px;padding:18px;}
+.sys-lbl{font-family:'JetBrains Mono',monospace;font-size:.52rem;color:var(--dim);letter-spacing:2px;margin-bottom:8px;}
+.sys-val{font-family:'Orbitron',monospace;font-size:1.15rem;font-weight:700;color:var(--acc);margin-bottom:8px;}
+.sys-bar{height:3px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden;}
+.sys-bar-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .5s ease;}
+
+/* API status badge */
+.api-status{display:inline-flex;align-items:center;gap:7px;padding:7px 14px;border-radius:12px;font-size:.7rem;font-weight:700;font-family:'JetBrains Mono',monospace;letter-spacing:1px;margin-top:10px;}
+.api-status.ok{background:rgba(0,255,170,.08);border:1px solid rgba(0,255,170,.2);color:var(--online);}
+.api-status.fail{background:rgba(255,68,102,.08);border:1px solid rgba(255,68,102,.2);color:var(--err);}
+.api-status.checking{background:rgba(0,210,255,.08);border:1px solid rgba(0,210,255,.2);color:var(--acc);}
+.api-status .dot{width:6px;height:6px;border-radius:50%;background:currentColor;}
+
+/* TOAST */
+.toast{position:fixed;bottom:88px;left:50%;transform:translateX(-50%) translateY(18px);padding:11px 22px;border-radius:12px;font-size:.76rem;font-weight:700;z-index:99999;backdrop-filter:blur(12px);white-space:nowrap;opacity:0;transition:all .3s ease;pointer-events:none;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* CONTEXT MENU MODAL */
+#ctx-modal{position:fixed;inset:0;z-index:40000;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(0,0,0,.88);backdrop-filter:blur(20px);}
+#ctx-modal.show{display:flex;}
+.ctx-card{width:100%;max-width:440px;background:rgba(5,5,13,.97);border:1px solid rgba(0,210,255,.2);border-radius:20px;padding:28px;animation:cardIn .3s cubic-bezier(.34,1.4,.64,1) both;}
+.ctx-title{font-family:'Orbitron',monospace;font-size:.8rem;font-weight:700;letter-spacing:2px;color:var(--acc);margin-bottom:16px;}
+.ctx-body{font-size:.82rem;color:var(--mid);line-height:1.7;margin-bottom:20px;}
+.ctx-close{padding:10px 22px;background:linear-gradient(135deg,var(--acc),#009fc2);border:none;border-radius:11px;color:#000;font-weight:800;font-size:.75rem;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;}
+
+/* Mobile */
+#mob-adm-toggle{display:none;}
+@media(max-width:700px){
+  .adm-body{grid-template-columns:1fr;}
+  .adm-sb{position:fixed;left:-250px;top:56px;bottom:0;width:250px;z-index:100;transition:left .3s ease;}
+  .adm-sb.open{left:0;}
+  #mob-adm-toggle{display:flex;align-items:center;gap:6px;padding:0 14px;cursor:pointer;color:var(--dim);font-size:.85rem;border-right:1px solid rgba(255,255,255,.055);height:100%;}
+  .adm-content{padding:18px 14px;}
+  .adm-grid{grid-template-columns:1fr;}
+  .model-grid{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:500px){
+  .auth-card{padding:34px 20px;}
+  #main-content{padding:16px 12px 150px;}
+  .q-grid{grid-template-columns:repeat(2,1fr);}
+  .model-grid{grid-template-columns:1fr;}
+}
+.hidden{display:none!important;}
+
+/* PROMPT TEMPLATES */
+.prompt-templates{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:16px;}
+.prompt-chip{padding:6px 13px;background:rgba(0,210,255,.06);border:1px solid rgba(0,210,255,.18);border-radius:20px;font-size:.68rem;color:var(--acc);cursor:pointer;transition:var(--tr);font-family:'JetBrains Mono',monospace;}
+.prompt-chip:hover{background:rgba(0,210,255,.14);transform:translateY(-1px);}
+
+/* STATS BAR */
+.stats-bar{display:flex;gap:20px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.04);margin-bottom:24px;overflow-x:auto;}
+.stat-item{display:flex;flex-direction:column;gap:4px;flex-shrink:0;}
+.stat-label{font-family:'JetBrains Mono',monospace;font-size:.46rem;color:var(--dim);letter-spacing:2px;text-transform:uppercase;}
+.stat-value{font-family:'Orbitron',monospace;font-size:.82rem;font-weight:700;color:var(--acc);}
+</style>
+</head>
+<body>
+
+<div class="toast" id="toast"></div>
+
+<!-- SPLASH -->
+<div id="splash">
+  <div class="sp-logo"><span id="sp-brand">NIMAH</span> OS X</div>
+  <div class="sp-rings"><div class="sp-r1"></div><div class="sp-r2"></div><div class="sp-dot"></div></div>
+  <div class="sp-bar-wrap"><div class="sp-bar"></div></div>
+  <div class="sp-txt" id="sp-txt">INITIALIZING CORE SYSTEMS<span class="blink">.</span><span class="blink">.</span><span class="blink">.</span></div>
+</div>
+
+<!-- SUCCESS -->
+<div id="success-ov">
+  <div class="succ-ring"><i class="fa-solid fa-bolt"></i></div>
+  <div class="succ-txt">QUANTUM <span>AUTHORIZED</span></div>
+</div>
+
+<!-- AUTH -->
+<div id="auth-screen">
+  <div class="auth-card" id="login-pane">
+    <div class="auth-eye">CORE ACCESS PORTAL</div>
+    <div class="auth-logo" id="ui-auth-brand"><span>NIMAH</span> OS X<small>NEXT-GEN OPERATING SYSTEM</small></div>
+    <div class="auth-err-box" id="login-err-box"><i class="fa-solid fa-triangle-exclamation"></i><div class="err-content"><div class="err-title" id="login-err-title">Login Failed</div><div class="err-msg" id="login-err-msg">Incorrect email or password.</div></div></div>
+    <div class="inp-grp"><i class="fa-solid fa-envelope"></i><input type="email" id="log-email" placeholder="Email address" autocomplete="email"></div>
+    <div class="inp-grp"><i class="fa-solid fa-lock"></i><input type="password" id="log-pass" placeholder="Password" autocomplete="current-password" onkeydown="if(event.key==='Enter')window.handleLogin()"></div>
+    <button class="btn-auth" id="btn-login" onclick="window.handleLogin()"><i class="fa-solid fa-bolt"></i> ENTER CORE</button>
+    <div class="auth-div"><span>NEW AGENT?</span></div>
+    <p class="auth-switch" onclick="toggleAuth(true)">Create your account <span>Register →</span></p>
+  </div>
+  <div class="auth-card hidden" id="register-pane">
+    <div class="auth-eye">AGENT INITIALIZATION</div>
+    <div class="auth-logo"><span>REGISTER</span><small>CREATE YOUR AGENT PROFILE</small></div>
+    <div class="auth-err-box" id="reg-err-box"><i class="fa-solid fa-triangle-exclamation"></i><div class="err-content"><div class="err-title" id="reg-err-title">Registration Failed</div><div class="err-msg" id="reg-err-msg">Something went wrong.</div><span class="err-action hidden" id="reg-err-action" onclick="toggleAuth(false)">→ Go to Login</span></div></div>
+    <div class="auth-ok-box" id="reg-ok-box"><i class="fa-solid fa-circle-check"></i><span id="reg-ok-msg">Verification email sent!</span></div>
+    <div class="inp-grp"><i class="fa-solid fa-user"></i><input type="text" id="reg-name" placeholder="Full name" autocomplete="name"></div>
+    <div class="inp-grp"><i class="fa-solid fa-envelope"></i><input type="email" id="reg-email" placeholder="Email address" autocomplete="email"></div>
+    <div class="inp-grp"><i class="fa-solid fa-key"></i><input type="password" id="reg-pass" placeholder="Password (6+ chars)" autocomplete="new-password" onkeydown="if(event.key==='Enter')window.handleRegister()"></div>
+    <button class="btn-auth" id="btn-register" onclick="window.handleRegister()"><i class="fa-solid fa-user-plus"></i> INITIALIZE AGENT</button>
+    <div class="auth-div"><span>HAVE ACCOUNT?</span></div>
+    <p class="auth-switch" onclick="toggleAuth(false)">Already registered? <span>Log in →</span></p>
+  </div>
+</div>
+
+<!-- ADMIN PW MODAL -->
+<div id="admin-pw-modal">
+  <div class="apw-card">
+    <div class="apw-icon"><i class="fa-solid fa-shield-halved"></i></div>
+    <div class="apw-title">VAULT ACCESS</div>
+    <div class="apw-sub">Enter the administrative password<br>to access the control center.</div>
+    <div class="inp-grp" style="margin-bottom:0;"><i class="fa-solid fa-lock"></i><input type="password" id="apw-input" placeholder="Admin password" onkeydown="if(event.key==='Enter')window.adminUnlock();if(event.key==='Escape')window.closeAdminModal();"></div>
+    <div class="apw-err" id="apw-error"><i class="fa-solid fa-triangle-exclamation"></i> Incorrect password. Access denied.</div>
+    <div class="apw-btns"><button class="btn-cancel" onclick="window.closeAdminModal()">Cancel</button><button class="btn-unlock" onclick="window.adminUnlock()"><i class="fa-solid fa-unlock"></i> Unlock</button></div>
+  </div>
+</div>
+
+<!-- CONTEXT MODAL -->
+<div id="ctx-modal">
+  <div class="ctx-card">
+    <div class="ctx-title" id="ctx-title">INFORMATION</div>
+    <div class="ctx-body" id="ctx-body"></div>
+    <button class="ctx-close" onclick="document.getElementById('ctx-modal').classList.remove('show')">CLOSE</button>
+  </div>
+</div>
+
+<!-- ADMIN DASHBOARD -->
+<div id="admin-dash">
+  <div class="adm-hdr">
+    <div class="adm-hdr-left">
+      <div id="mob-adm-toggle" onclick="toggleSidebar()"><i class="fa-solid fa-bars"></i></div>
+      <div class="adm-brand">PRO <span>VAULT</span></div>
+    </div>
+    <div class="adm-hdr-mid"><div class="adm-hdr-title" id="adm-hdr-title">General Settings</div></div>
+    <div class="adm-hdr-right">
+      <div class="adm-online-dot"></div><div class="adm-online-txt">SYSTEM LIVE</div>
+      <div class="h-btn" onclick="window.closeAdmin()" title="Exit"><i class="fa-solid fa-arrow-right-from-bracket"></i></div>
+    </div>
+  </div>
+  <div class="adm-body">
+    <div class="adm-sb" id="adm-sb">
+      <div class="adm-sb-scroll">
+        <div class="adm-sb-lbl">General</div>
+        <div class="adm-nav on" onclick="adTab('general',this)"><i class="fa-solid fa-gear"></i>General Settings</div>
+        <div class="adm-nav" onclick="adTab('branding',this)"><i class="fa-solid fa-paintbrush"></i>Branding</div>
+        <div class="adm-nav" onclick="adTab('theme',this)"><i class="fa-solid fa-palette"></i>Theme & Colors</div>
+        <div class="adm-nav" onclick="adTab('fonts',this)"><i class="fa-solid fa-font"></i>Fonts</div>
+        <div class="adm-nav" onclick="adTab('background',this)"><i class="fa-solid fa-image"></i>Background</div>
+        <div class="adm-nav" onclick="adTab('animations',this)"><i class="fa-solid fa-wand-magic-sparkles"></i>Animations</div>
+        <div class="adm-sb-lbl">Site Structure</div>
+        <div class="adm-nav" onclick="adTab('header',this)"><i class="fa-solid fa-heading"></i>Header</div>
+        <div class="adm-nav" onclick="adTab('footer',this)"><i class="fa-solid fa-minus"></i>Footer</div>
+        <div class="adm-nav" onclick="adTab('homepage',this)"><i class="fa-solid fa-house"></i>Homepage</div>
+        <div class="adm-nav" onclick="adTab('loading',this)"><i class="fa-solid fa-spinner"></i>Loading Screen</div>
+        <div class="adm-nav" onclick="adTab('layout',this)"><i class="fa-solid fa-table-columns"></i>Layout</div>
+        <div class="adm-sb-lbl">AI & Intelligence</div>
+        <div class="adm-nav" onclick="adTab('ai',this)"><i class="fa-solid fa-robot"></i>AI Manager</div>
+        <div class="adm-nav" onclick="adTab('model',this)"><i class="fa-solid fa-microchip"></i>Model Manager</div>
+        <div class="adm-nav" onclick="adTab('prompt',this)"><i class="fa-solid fa-comment-dots"></i>Prompt Manager</div>
+        <div class="adm-nav" onclick="adTab('voice',this)"><i class="fa-solid fa-microphone"></i>Voice Settings</div>
+        <div class="adm-nav" onclick="adTab('chat-settings',this)"><i class="fa-solid fa-message"></i>Chat Settings</div>
+        <div class="adm-sb-lbl">Management</div>
+        <div class="adm-nav" onclick="adTab('security',this)"><i class="fa-solid fa-shield-halved"></i>Security</div>
+        <div class="adm-nav" onclick="adTab('users',this)"><i class="fa-solid fa-users"></i>Users</div>
+        <div class="adm-nav" onclick="adTab('analytics',this)"><i class="fa-solid fa-chart-line"></i>Analytics</div>
+        <div class="adm-nav" onclick="adTab('monitor',this)"><i class="fa-solid fa-tower-broadcast"></i>System Monitor</div>
+        <div class="adm-nav" onclick="adTab('backup',this)"><i class="fa-solid fa-database"></i>Backup & Restore</div>
+        <div class="adm-nav" onclick="adTab('seo',this)"><i class="fa-solid fa-magnifying-glass"></i>SEO Manager</div>
+        <div class="adm-nav" onclick="adTab('devtools',this)"><i class="fa-solid fa-code"></i>Dev Tools</div>
+      </div>
+      <div class="adm-sb-foot"><button class="btn-exit" onclick="window.closeAdmin()"><i class="fa-solid fa-arrow-right-from-bracket"></i>Exit Dashboard</button></div>
+    </div>
+    <div class="adm-main">
+      <div class="adm-content">
+
+        <!-- GENERAL -->
+        <div class="adm-sec on" id="sec-general">
+          <div class="adm-sec-head"><h2>General Settings</h2><p>Core identity synced to all clients in real-time.</p></div>
+          <div class="adm-card">
+            <div class="adm-card-hd"><i class="fa-solid fa-globe"></i>Site Identity</div>
+            <div class="adm-grid">
+              <div class="adm-g"><label class="adm-lbl">Site Name</label><input type="text" id="g-brand" class="adm-inp" placeholder="NIMAH OS X"></div>
+              <div class="adm-g"><label class="adm-lbl">Browser Tab Title</label><input type="text" id="g-title" class="adm-inp" placeholder="NIMAH OS X | PRO"></div>
+              <div class="adm-g full"><label class="adm-lbl">Welcome Message</label><input type="text" id="g-welcome" class="adm-inp" placeholder="Welcome Back,"></div>
+              <div class="adm-g full"><label class="adm-lbl">Sub Welcome Text</label><input type="text" id="g-sub" class="adm-inp" placeholder="Your AI system is ready."></div>
+            </div>
+          </div>
+          <div class="save-row"><button class="btn-save" onclick="saveAll()"><i class="fa-solid fa-floppy-disk"></i>Save Changes</button></div>
+        </div>
+
+        <!-- BRANDING -->
+        <div class="adm-sec" id="sec-branding">
+          <div class="adm-sec-head"><h2>Branding</h2><p>Logo, favicon and brand identity.</p></div>
+          <div class="adm-card">
+            <div class="adm-card-hd"><i class="fa-solid fa-star"></i>Brand Identity</div>
+            <div class="adm-grid">
+              <div class="adm-g"><label class="adm-lbl">Brand Name</label><input type="text" id="b-name" class="adm-inp" placeholder="NIMAH OS X"></div>
+              <div class="adm-g"><label class="adm-lbl">Tagline</label><input type="text" id="b-tag" class="adm-inp" placeholder="NEXT-GEN SYSTEM"></div>
+              <div class="adm-g full"><label class="adm-lbl">Logo Image URL</label><input type="url" id="b-logo" class="adm-inp" placeholder="https://..."></div>
+              <div class="adm-g full"><label class="adm-lbl">Favicon URL</label><input type="url" id="b-fav" class="adm-inp" placeholder="https://..."></div>
+            </div>
+          </div>
+          <div class="save-row"><button class="btn-save" onclick="saveAll()"><i class="fa-solid fa-floppy-disk"></i>Save Branding</button></div>
+        </div>
+
+        <!-- THEME -->
+        <div class="adm-sec" id="sec-theme">
+          <div class="adm-sec-head"><h2>Theme & Colors</h2><p>Accent colors and card styles.</p></div>
+          <div class="adm-card">
+            <div class="adm-card-hd"><i class="fa-solid fa-droplet"></i>Color System</div>
+            <div class="adm-grid">
+              <div class="adm-g"><label class="adm-lbl">Primary Accent</label><div class="adm-color-row"><input type="color" id="t-acc-pk" value="#00d2ff"><input type="text" id="t-acc" class="adm-inp" placeholder="#00d2ff"></div></div>
+              <div class="adm-g"><label class="adm-lbl">Secondary Accent</label><div class="adm-color-row"><input type="color" id="t-acc2-pk" value="#7b2fff"><input type="text" id="t-acc2" class="adm-inp" placeholder="#7b2fff"></div></div>
+              <div class="adm-g"><label class="adm-lbl">Card Style</label><select id="t-card" class="adm-inp adm-sel"><option value="glass">Glassmorphism</option><option value="solid">Solid Dark</option><option value="neon">Neon Glow</option><option value="minimal">Minimal</option></select></div>
+              <div class="adm-g"><label class="adm-lbl">Layout Style</label><select id="t-layout" class="adm-inp adm-sel"><option value="default">Default</option><option value="wide">Wide</option><option value="compact">Compact</option></select></div>
+            </div>
+          </div>
+          <div class="save-row"><button class="btn-save" onclick="saveAll()"><i class="fa-solid fa-floppy-disk"></i>Save Theme</button></div>
+        </div>
+
+        <!-- FONTS -->
+        <div class="adm-sec" id="sec-fonts">
+          <div class="adm-sec-head"><h2>Font Manager</h2><p>Display and body typefaces.</p></div>
+          <div class="adm-card">
+            <div class="adm-card-hd"><i class="fa-solid fa-font"></i>Typography</div>
+            <div class="adm-grid">
+              <div class="adm-g"><label class="adm-lbl">Display Font</label><select id="f-display" class="adm-inp adm-sel"><option>Orbitron</option><option>Rajdhani</option><option>Exo 2</option><option>Space Grotesk</option></select></div>
+              <div class="adm-g"><label class="adm-lbl">Body Font</label><select id="f-body" class="adm-inp adm-sel"><option>Plus Jakarta Sans</option><option>Inter</option><option>DM Sans</option><option>Sora</option></select></div>
+            </div>
+          </div>
+          <div class="save-row"><button class="btn-save" onclick="saveAll()"><i class="fa-solid fa-floppy-disk"></i>Save Fonts</button></div>
+        </div>
+
+        <!-- BACKGROUND -->
+        <div class="adm-sec" id="sec-background">
+          <div class="adm-sec-head"><h2>Background Manager</h2><p>Atmospheric background settings.</p></div>
+          <div class="adm-card">
+            <div class="adm-card-hd"><i class="fa-solid fa-image"></i>Background</div>
+            <div class="adm-grid">
+              <div class="adm-g"><label class="adm-lbl">Type</label><select id="bg-type" class="adm-inp adm-sel"><option value="gradient">Gradient</option><option value="image">Image</option><option value="solid">Solid</option></select></div>
+              <div class="adm-g"><label class="adm-lbl">Base Color</label><input type="text" id="bg-color" class="adm-inp" placeholder="#000000"></div>
+              <div class="adm-g full"><label class="adm-lbl">Background Image URL</label><input type="url" id="bg-url" class="adm-inp" placeholder="https://..."></div>
+            </div>
+          </div>
+          <div class="save-row"><button class="btn-save" onclick="saveAll()"><i class="fa-solid fa-floppy-disk"></i>Save</button></div>
+        </div>
+
+        <!-- ANIMATIONS -->
+        <div class="adm-sec" id="sec-animations">
+          <div class="adm-sec-head"><h2>Animation Manager</h2><p>Motion speed and style.</p></div>
+          <div class="adm-card">
+            <div class="adm-card-hd"><i class="fa-solid fa-wand-magic-sparkles"></i>Motion Settings</div>
+            <div class="adm-grid">
+              <div class="adm-g"><label class="adm-lbl">Speed</label><select id="an-speed" class="adm-inp adm-sel"><option value="fast">Fast</option><option value="normal" selected>Normal</option><option value="slow">Slow</option><option value="none">Disabled</option></select></div>
+              <div class="adm-g"><label class="adm-lbl">Style</label><select id="an-style" class="adm-inp adm-sel"><option value="ease">Ease</option><option value="bounce">Bounce</option><option value="linear">Linear</option></select></div>
+            </div>
+          </div>
+          <div class="save-row"><button class="btn-save" onclick="saveAll()"><i class="fa-solid fa-floppy-disk"></i>Save</button></div>
+        </div>
+
+        <!-- HEADER -->
+        <div class="adm-sec" id="sec-header">
+          <div class="adm-sec-head"><h2>Header Manager</h2><p>Top navigation bar content.</p></div>
+          <div class="adm-card">
+            <div class="adm-card-hd"><i class="fa-solid fa-heading"></i>Header Config</div>
+            <div class="adm-grid">
+              <div class="adm-g"><label class="adm-lbl">Brand Text</label><input type="text" id="hd-brand" class="adm-inp" placeholder="NIMAH OS X"></div>
+              <div class="adm-g"><label class="adm-lbl">Version Text</label><input type="text" id="hd-ver" class="adm-inp" placeholder="SYSTEM v4.0.8 PRO"></div>
+            </div>
+          </div>
+          <div class="save-row"><button class="btn-save" onclick="saveAll()"><i class="fa-solid fa-floppy-disk"></i>Save Header</button></div>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="adm-sec" id="sec-footer">
+          <div class="adm-sec-head"><h2>Footer Manager</h2><p>"2026" triggers the admin modal.</p></div>
+          <div class="adm-card">
+            <div class="adm-card-hd"><i class="fa-solid fa-minus"></i>Footer Config</div>
+            <div class="adm-grid one">
+              <div class="adm-g"><label class="adm-lbl">Footer Text</label><input type="text" id="ft-text" class="adm-inp" placeholder="@2026 All Rights Reserved | Engineered By Nimah Developer"></div>
+            </div>
+            <p style="font-size:.68rem;color:var(--dim);margin-top:12px;line-height:1.5;">💡 Keep "2026" in footer — tap it <span id="ft-click-hint">3</span> times to open admin.</p>
+          </div>
+          <div class="save-row"><button class="btn-save" onclick="saveAll()"><i class="fa-solid fa-floppy-disk"></i>Save Footer</button></div>
+        </div>
+
+        <!-- HOMEPAGE -->
+        <div class="adm-sec" id="sec-homepage">
+          <div class="adm-sec-head"><h2>Homepage Manager</h2><p>Dashboard greeting and quick tiles.</p></div>
+          <div class="adm-card">
+            <div class="adm-card-hd"><i class="fa-solid fa-house"></i>Dashboard Settings</div>
+            <div class="adm-grid one">
+              <div class="adm-g"><label class="adm-lbl">Hero Greeting</label><input type="text" id="hp-greet" class="adm-inp" placeholder="Welcome Back,"></div>
+              <div class="adm-g"><label class="adm-lbl">Sub Text</label><input type="text" id="hp-sub" class="adm-inp" placeholder="Your AI system is ready."></div>
+            </div>
+          </div>
+          <div class="save-row"><button class="btn-save" onclick="saveAll()"><i class="fa-solid fa-floppy-disk"></i>Save</button></div>
+        </div>
+
+        <!-- LOADING -->
+        <div class="adm-sec" id="sec-loading">
+          <div class="adm-sec-head"><h2>Loading Screen</h2><p>Splash screen on startup.</p></div>
+          <div class="adm-card">
+            <div class="adm-card-hd"><i class="fa-solid fa-spinner"></i>Splash Config</div>
+            <div class="adm-grid">
+              <div class="adm-g full"><label class="adm-lbl">Loading Text</label><input type="text" id="ld-txt" class="adm-inp" placeholder="INITIALIZING CORE SYSTEMS"></div>
+              <div class="adm-g"><label class="adm-lbl">Duration (ms)</label><input type="number" id="ld-dur" class="adm-inp" placeholder="2200"></div>
+            </div>
+          </div>
+          <div class="save-row"><button class="btn-save" onclick="saveAll()"><i class="fa-solid fa-floppy-disk"></i>Save</button></div>
+        </div>
+
+        <!-- LAYOUT -->
+        <div class="adm-sec" id="sec-layout">
+          <div class="adm-sec-head"><h2>Layout Manager</h2><p>Content width and border radius.</p></div>
+          <div class="adm-card">
+            <div class="adm-card-hd"><i class="fa-solid fa-table-columns"></i>Layout Options</div>
+            <div class="adm-grid">
+              <div class="adm-g"><label class="adm-lbl">Content Width</label><select id="ly-width" class="adm-inp adm-sel"><option value="940">Standard (940px)</option><option value="1100">Wide (1100px)</option><option value="720">Compact (720px)</option></select></div>
+              <div class="adm-g"><label class="adm-lbl">Border Radius</label><select id="ly-radius" class="adm-inp adm-sel"><option value="20px">Rounded (20px)</option><option value="28px">Extra Rounded</option><option value="12px">Slightly Rounded</option><option value="6px">Sharp</option></select></div>
+            </div>
+          </div>
+          <div class="save-row"><button class="btn-save" onclick="saveAll()"><i class="fa-solid fa-floppy-disk"></i>Save Layout</button></div>
+        </div>
+
+        <!-- AI MANAGER -->
+        <div class="adm-sec" id="sec-ai">
+          <div class="adm-sec-head"><h2>AI Manager</h2><p>API provider and intelligence engine configuration.</p></div>
+          <div class="adm-card">
+            <div class="adm-card-hd"><i class="fa-solid fa-plug"></i>API Provider</div>
+            <div class="api-provider-tabs">
+              <div class="ap-tab on" id="tab-groq" onclick="switchProvider('groq')">⚡ GROQ</div>
+              <div class="ap-tab" id="tab-openrouter" onclick="switchProvider('openrouter')">🔀 OPENROUTER</div>
+            </div>
+            <div id="provider-groq-info" style="font-size:.72rem;color:var(--dim);line-height:1.6;padding:10px;background:rgba(0,210,255,.04);border:1px solid rgba(0,210,255,.1);border-radius:10px;">
+              ⚡ <strong style="color:var(--acc)">Groq API</strong> — Ultra-fast inference. Free tier at console.groq.com. Models: Llama 3, Mixtral, Gemma.
+            </div>
+            <div id="provider-or-info" style="font-size:.72rem;color:var(--dim);line-height:1.6;padding:10px;background:rgba(123,47,255,.04);border:1px solid rgba(123,47,255,.1);border-radius:10px;display:none;">
+              🔀 <strong style="color:#b78fff">OpenRouter</strong> — 100+ models. Key at openrouter.ai. GPT-4o, Claude, Gemini and more.
+            </div>
+          </div>
+          <div class="adm-card">
+            <div class="adm-card-hd"><i class="fa-solid fa-key"></i>API Key</div>
+            <div class="adm-grid one">
+              <div class="adm-g"><label class="adm-lbl" id="api-key-label">Groq API Key</label><input type="password" id="ai-key" class="adm-inp" placeholder="gsk_..."></div>
+              <div class="adm-g"><label class="adm-lbl">Key Preview</label><input type="text" id="ai-key-show" class="adm-inp" placeholder="Preview" readonly style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--acc);"></div>
+            </div>
+            <div id="api-status-badge" class="api-status checking"><div class="dot"></div><span>Not tested</span></div>
+            <div class="save-row" style="margin-top:14px;">
+              <button class="btn-save" onclick="saveAll()"><i class="fa-solid fa-floppy-disk"></i>Save Key</button>
+              <button class="btn-sec" onclick="testApiKey()"><i class="fa-solid fa-vial"></i> Test Connection</button>
+            </div>
+          </div>
+          <div class="adm-card">
+            <div class="adm-card-hd"><i class="fa-solid fa-robot"></i>Active Model</div>
+            <div class="adm-grid one"><div class="adm-g"><label class="adm-lbl">Current Model</label><input type="text" id="ai-model-current" class="adm-inp" readonly style="font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--acc);"></div></div>
+            <p style="font-size:.7rem;color:var(--dim);margin-top:10px;">Go to <strong style="color:var(--acc)">Model Manager</strong> to change.</p>
+          </div>
+          <div class="adm-card">
+            <div class="adm-card-hd"><i class="fa-solid fa-sliders"></i>AI Parameters</div>
+            <div class="adm-grid">
+              <div class="adm-g"><label class="adm-lbl">Temperature (0–2)</label><input type="number" id="ai-temp" class="adm-inp" placeholder="0.7" min="0" max="2" step="0.1"></div>
+              <div class="adm-g"><label class="adm-lbl">Max Tokens</label><input type="number" id="ai-maxtok" class="adm-inp" placeholder="2048" min="256" max="8192"></div>
+            </div>
+          </div>
+          <div class="adm-card">
+            <div class="adm-card-hd"><i class="fa-solid fa-comment-dots"></i>System Prompt</div>
+            <div class="adm-grid one"><div class="adm-g"><textarea id="ai-prompt" class="adm-inp adm-ta" style="min-height:130px;" placeholder="You are Nimah, an advanced AI assistant. Be smart, concise and professional."></textarea></div></div>
+          </div>
+          <div class="save-row"><button class="btn-save" onclick="saveAll()"><i class="fa-solid fa-floppy-disk"></i>Sync AI Core</button></div>
+        </div>
+
+        <!-- MODEL MANAGER -->
+        <div class="adm-sec" id="sec-model">
+          <div class="adm-sec-head"><h2>Model Manager</h2><p>Select and manage AI models per provider.</p></div>
+          <div class="adm-card">
+            <div class="adm-card-hd"><i class="fa-solid fa-microchip"></i>Select Model</div>
+            <div class="model-grid" id="model-picker"></div>
+          </div>
+          <div class="adm-card">
+            <div class="adm-card-hd"><i class="fa-solid fa-plus"></i>Add Custom Model</div>
+            <p style="font-size:.72rem;color:var(--dim);margin-bottom:12px;line-height:1.55;">Enter any valid model ID for your selected provider.</p>
+            <div class="adm-grid" style="gap:10px;">
+              <div class="adm-g"><label class="adm-lbl">Model ID</label><input type="text" id="custom-model-id" class="adm-inp" placeholder="llama-3.3-70b-versatile"></div>
+              <div class="adm-g"><label class="adm-lbl">Display Name</label><input type="text" id="custom-model-name" class="adm-inp" placeholder="My Custom Model"></div>
+            </div>
+            <button class="btn-save" style="margin-top:12px;" onclick="addCustomModel()"><i class="fa-solid fa-plus"></i>Add Model</button>
+          </div>
+          <div class="save-row"><button class="btn-save" onclick="saveAll()"><i class="fa-solid fa-floppy-disk"></i>Apply Selection</button></div>
+        </div>
+
+        <!-- PROMPT MANAGER -->
+        <div class="adm-sec" id="sec-prompt">
+          <div class="adm-sec-head"><h2>Prompt Manager</h2><p>AI personality, behavior rules and quick templates.</p></div>
+          <div class="adm-card">
+            <div class="adm-card-hd"><i class="fa-solid fa-comment-dots"></i>Master Prompt</div>
+            <div class="adm-grid one"><div class="adm-g"><textarea id="pm-prompt" class="adm-inp adm-ta" style="min-height:200px;" placeholder="You are Nimah, an advanced AI assistant..."></textarea></div></div>
+          </div>
+          <div class="adm-card">
+            <div class="adm-card-hd"><i class="fa-solid fa-bolt"></i>Quick Presets</div>
+            <div style="display:flex;flex-wrap:wrap;gap:8px;">
+              <button class="btn-sec" onclick="setPromptPreset('professional')" style="font-size:.72rem;">💼 Professional</button>
+              <button class="btn-sec" onclick="setPromptPreset('creative')" style="font-size:.72rem;">🎨 Creative</button>
+              <button class="btn-sec" onclick="setPromptPreset('technical')" style="font-size:.72rem;">⚙️ Technical</button>
+              <button class="btn-sec" onclick="setPromptPreset('tutor')" style="font-size:.72rem;">🎓 Tutor</button>
+              <button class="btn-sec" onclick="setPromptPreset('concise')" style="font-size:.72rem;">⚡ Ultra Concise</button>
+            </div>
+          </div>
+          <div class="save-row"><button class="btn-save" onclick="saveAll()"><i class="fa-solid fa-floppy-disk"></i>Save Prompt</button></div>
+        </div>
+
+        <!-- VOICE -->
+        <div class="adm-sec" id="sec-voice">
+          <div class="adm-sec-head"><h2>Voice Settings</h2><p>Speech recognition and TTS configuration.</p></div>
+          <div class="adm-card">
+            <div class="adm-card-hd"><i class="fa-solid fa-microphone"></i>Voice Config</div>
+            <div class="adm-grid">
+              <div class="adm-g"><label class="adm-lbl">Language</label><select id="vc-lang" class="adm-inp adm-sel"><option value="en-US">English (US)</option><option value="en-GB">English (UK)</option><option value="ar-SA">Arabic</option><option value="fr-FR">French</option><option value="de-DE">German</option><option value="es-ES">Spanish</option><option value="si-LK">Sinhala</option><option value="zh-CN">Chinese</option><option value="ja-JP">Japanese</option></select></div>
+              <div class="adm-g"><label class="adm-lbl">Auto-Send After Voice</label><select id="vc-auto" class="adm-inp adm-sel"><option value="false">Manual Send</option><option value="true">Auto Send</option></select></div>
+              <div class="adm-g"><label class="adm-lbl">Text-to-Speech</label><select id="vc-tts" class="adm-inp adm-sel"><option value="false">Disabled</option><option value="true">Enabled</option></select></div>
+              <div class="adm-g"><label class="adm-lbl">TTS Voice Speed</label><select id="vc-speed" class="adm-inp adm-sel"><option value="0.8">Slow</option><option value="1.0" selected>Normal</option><option value="1.2">Fast</option><option value="1.5">Very Fast</option></select></div>
+            </div>
+          </div>
+          <div class="save-row"><button class="btn-save" onclick="saveAll()"><i class="fa-solid fa-floppy-disk"></i>Save Voice</button></div>
+        </div>
+
+        <!-- CHAT SETTINGS -->
+        <div class="adm-sec" id="sec-chat-settings">
+          <div class="adm-sec-head"><h2>Chat Settings</h2><p>Message history, streaming, and chat behavior.</p></div>
+          <div class="adm-card">
+            <div class="adm-card-hd"><i class="fa-solid fa-message"></i>Chat Config</div>
+            <div class="adm-grid">
+              <div class="adm-g"><label class="adm-lbl">Save Chat History</label><select id="cs-save" class="adm-inp adm-sel"><option value="true">Enabled</option><option value="false">Disabled</option></select></div>
+              <div class="adm-g"><label class="adm-lbl">Max History Items</label><input type="number" id="cs-maxhist" class="adm-inp" placeholder="50" min="5" max="200"></div>
+              <div class="adm-g"><label class="adm-lbl">Show Timestamps</label><select id="cs-ts" class="adm-inp adm-sel"><option value="true">Enabled</option><option value="false">Disabled</option></select></div>
+              <div class="adm-g"><label class="adm-lbl">Markdown Rendering</label><select id="cs-md" class="adm-inp adm-sel"><option value="true">Enabled</option><option value="false">Disabled (Plain)</option></select></div>
+              <div class="adm-g"><label class="adm-lbl">Context Window</label><select id="cs-ctx" class="adm-inp adm-sel"><option value="10">Last 10 messages</option><option value="20">Last 20 messages</option><option value="50">Last 50 messages</option><option value="0">No memory</option></select></div>
+              <div class="adm-g"><label class="adm-lbl">Welcome Quick Prompts</label><select id="cs-qp" class="adm-inp adm-sel"><option value="true">Enabled</option><option value="false">Disabled</option></select></div>
+            </div>
+          </div>
+          <div class="save-row"><button class="btn-save" onclick="saveAll()"><i class="fa-solid fa-floppy-disk"></i>Save Chat Settings</button></div>
+        </div>
+
+        <!-- SECURITY -->
+        <div class="adm-sec" id="sec-security">
+          <div class="adm-sec-head"><h2>Security Policy</h2><p>Admin credentials and access control.</p></div>
+          <div class="adm-card">
+            <div class="adm-card-hd"><i class="fa-solid fa-shield-halved"></i>Access Control</div>
+            <div class="adm-grid">
+              <div class="adm-g"><label class="adm-lbl">Admin Password</label><input type="password" id="sc-pass" class="adm-inp" placeholder="Admin password"></div>
+              <div class="adm-g"><label class="adm-lbl">Trigger Click Count</label><input type="number" id="sc-clicks" class="adm-inp" placeholder="3" min="1" max="10"></div>
+            </div>
+          </div>
+          <div class="save-row"><button class="btn-save" onclick="saveAll()"><i class="fa-solid fa-floppy-disk"></i>Apply Security</button></div>
+        </div>
+
+        <!-- USERS -->
+        <div class="adm-sec" id="sec-users">
+          <div class="adm-sec-head"><h2>User Manager</h2><p>All registered agents.</p></div>
+          <div class="adm-card" style="padding:0;overflow:hidden;">
+            <div style="padding:16px 20px 13px;border-bottom:1px solid rgba(255,255,255,.04);">
+              <div class="adm-card-hd" style="margin-bottom:0;"><i class="fa-solid fa-users"></i>Registered Agents</div>
+            </div>
+            <div id="user-list-wrap"></div>
+          </div>
+          <div class="save-row"><button class="btn-sec" onclick="loadUsers()"><i class="fa-solid fa-rotate"></i> Refresh</button></div>
+        </div>
+
+        <!-- ANALYTICS -->
+        <div class="adm-sec" id="sec-analytics">
+          <div class="adm-sec-head"><h2>Analytics</h2><p>System performance overview.</p></div>
+          <div class="sys-grid">
+            <div class="sys-card"><div class="sys-lbl">TOTAL USERS</div><div class="sys-val" id="stat-users">—</div><div class="sys-bar"><div class="sys-bar-fill" style="width:80%"></div></div></div>
+            <div class="sys-card"><div class="sys-lbl">AI REQUESTS</div><div class="sys-val">∞</div><div class="sys-bar"><div class="sys-bar-fill" style="width:100%"></div></div></div>
+            <div class="sys-card"><div class="sys-lbl">UPTIME</div><div class="sys-val" style="font-size:1rem;color:var(--online);">99.9%</div><div class="sys-bar"><div class="sys-bar-fill" style="width:99%"></div></div></div>
+            <div class="sys-card"><div class="sys-lbl">STATUS</div><div class="sys-val" style="font-size:.78rem;color:var(--online);">ONLINE</div><div class="sys-bar"><div class="sys-bar-fill" style="width:100%"></div></div></div>
+          </div>
+        </div>
+
+        <!-- MONITOR -->
+        <div class="adm-sec" id="sec-monitor">
+          <div class="adm-sec-head"><h2>System Monitor</h2><p>Real-time service health status.</p></div>
+          <div class="sys-grid">
+            <div class="sys-card"><div class="sys-lbl">FIREBASE DB</div><div class="sys-val" style="font-size:.78rem;color:var(--online);">CONNECTED</div><div class="sys-bar"><div class="sys-bar-fill" style="width:100%"></div></div></div>
+            <div class="sys-card"><div class="sys-lbl">AUTH SERVICE</div><div class="sys-val" style="font-size:.78rem;color:var(--online);">ACTIVE</div><div class="sys-bar"><div class="sys-bar-fill" style="width:100%"></div></div></div>
+            <div class="sys-card"><div class="sys-lbl">AI API</div><div class="sys-val" id="mon-or" style="font-size:.78rem;color:var(--warn);">STANDBY</div><div class="sys-bar"><div id="mon-or-bar" class="sys-bar-fill" style="width:70%;background:linear-gradient(90deg,var(--warn),var(--acc))"></div></div></div>
+            <div class="sys-card"><div class="sys-lbl">VOICE ENGINE</div><div class="sys-val" style="font-size:.78rem;color:var(--online);">READY</div><div class="sys-bar"><div class="sys-bar-fill" style="width:100%"></div></div></div>
+          </div>
+        </div>
+
+        <!-- BACKUP -->
+        <div class="adm-sec" id="sec-backup">
+          <div class="adm-sec-head"><h2>Backup & Restore</h2><p>Export or import full configuration.</p></div>
+          <div class="adm-card">
+            <div class="adm-card-hd"><i class="fa-solid fa-database"></i>Config Backup</div>
+            <p style="font-size:.76rem;color:var(--dim);margin-bottom:18px;line-height:1.6;">Export all settings as JSON or paste a backup to restore.</p>
+            <div class="save-row">
+              <button class="btn-save" onclick="exportCfg()"><i class="fa-solid fa-download"></i>Export Config</button>
+              <button class="btn-sec" onclick="importCfg()"><i class="fa-solid fa-upload"></i> Import</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- SEO -->
+        <div class="adm-sec" id="sec-seo">
+          <div class="adm-sec-head"><h2>SEO Manager</h2><p>Optimize for search engines and AI indexers.</p></div>
+          <div class="adm-card">
+            <div class="adm-card-hd"><i class="fa-solid fa-magnifying-glass"></i>Meta Tags</div>
+            <div class="adm-grid one">
+              <div class="adm-g"><label class="adm-lbl">Meta Title</label><input type="text" id="seo-title" class="adm-inp" placeholder="NIMAH OS X | Pro AI Operating System"></div>
+              <div class="adm-g"><label class="adm-lbl">Meta Description</label><textarea id="seo-desc" class="adm-inp adm-ta" style="min-height:70px;" placeholder="Next-generation AI platform with ultra-fast inference..."></textarea></div>
+              <div class="adm-g"><label class="adm-lbl">Keywords (comma-separated)</label><textarea id="seo-kw" class="adm-inp adm-ta" style="min-height:70px;" placeholder="AI chat, GPT-4o, Claude AI, Gemini, Llama 3..."></textarea></div>
+            </div>
+          </div>
+          <div class="adm-card">
+            <div class="adm-card-hd"><i class="fa-brands fa-google"></i>Open Graph / Social</div>
+            <div class="adm-grid">
+              <div class="adm-g"><label class="adm-lbl">OG Image URL</label><input type="url" id="seo-og-img" class="adm-inp" placeholder="https://..."></div>
+              <div class="adm-g"><label class="adm-lbl">Canonical URL</label><input type="url" id="seo-canonical" class="adm-inp" placeholder="https://your-domain.com"></div>
+            </div>
+          </div>
+          <div class="save-row">
+            <button class="btn-save" onclick="saveSeo()"><i class="fa-solid fa-floppy-disk"></i>Apply SEO</button>
+            <button class="btn-sec" onclick="autoSeo()"><i class="fa-solid fa-wand-magic-sparkles"></i> Auto-Generate</button>
+          </div>
+        </div>
+
+        <!-- DEV TOOLS -->
+        <div class="adm-sec" id="sec-devtools">
+          <div class="adm-sec-head"><h2>Developer Tools</h2><p>Raw Firebase config and advanced controls.</p></div>
+          <div class="adm-card">
+            <div class="adm-card-hd"><i class="fa-solid fa-code"></i>Raw JSON Config</div>
+            <textarea id="dev-raw" class="adm-inp adm-ta" style="min-height:220px;font-family:'JetBrains Mono',monospace;font-size:.68rem;"></textarea>
+          </div>
+          <div class="save-row">
+            <button class="btn-save" onclick="devApply()">Apply Raw</button>
+            <button class="btn-sec" onclick="devRefresh()">Refresh</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN APP -->
+<header>
+  <div>
+    <div class="h-brand" id="ui-h-brand"><span>NIMAH</span> OS X</div>
+    <div class="h-ver" id="ui-h-ver">SYSTEM v4.0.8 PRO</div>
+  </div>
+  <div class="h-right">
+    <div class="status-pill" id="ai-status-pill">AI ONLINE</div>
+    <div class="h-btn" id="hist-toggle-btn" onclick="toggleHistPanel()" title="Chat History"><i class="fa-solid fa-clock-rotate-left"></i><div class="notif-dot" id="hist-dot"></div></div>
+    <div class="h-btn" onclick="window.handleLogout()" title="Logout"><i class="fa-solid fa-power-off"></i></div>
+  </div>
+</header>
+
+<main id="main-content">
+  <!-- HISTORY PANEL (slides in) -->
+  <div id="hist-panel" style="display:none;position:fixed;top:56px;right:0;bottom:0;width:280px;background:rgba(3,3,10,.98);border-left:1px solid rgba(255,255,255,.06);z-index:100;overflow-y:auto;padding:16px 10px;backdrop-filter:blur(20px);transition:transform .3s ease;transform:translateX(100%);">
+    <div class="chat-controls">
+      <div class="chat-controls-title">HISTORY</div>
+      <button class="btn-new-chat" onclick="newChat()"><i class="fa-solid fa-plus"></i> New</button>
+    </div>
+    <div id="hist-list"><div class="empty-history"><i class="fa-solid fa-message" style="font-size:1.5rem;color:var(--dim);margin-bottom:12px;display:block;"></i>No conversations yet.<br>Start chatting to build history.</div></div>
+  </div>
+
+  <div id="dashboard">
+    <div class="hero">
+      <h2 id="greet-msg">Welcome.</h2>
+      <p id="greet-sub">Your AI operating system is ready.</p>
+    </div>
+    <div class="stats-bar" id="stats-bar" style="display:none;">
+      <div class="stat-item"><div class="stat-label">Conversations</div><div class="stat-value" id="stat-convs">0</div></div>
+      <div class="stat-item"><div class="stat-label">Messages</div><div class="stat-value" id="stat-msgs">0</div></div>
+      <div class="stat-item"><div class="stat-label">Model</div><div class="stat-value" id="stat-model" style="font-size:.6rem;">—</div></div>
+      <div class="stat-item"><div class="stat-label">Provider</div><div class="stat-value" id="stat-provider" style="font-size:.6rem;">—</div></div>
+    </div>
+    <div class="prompt-templates" id="prompt-templates">
+      <div class="prompt-chip" onclick="setTask('Explain ')">💡 Explain a concept</div>
+      <div class="prompt-chip" onclick="setTask('Write a ')">✍️ Write content</div>
+      <div class="prompt-chip" onclick="setTask('Fix this code:\n')">🐛 Fix code</div>
+      <div class="prompt-chip" onclick="setTask('Help me plan ')">📋 Plan a project</div>
+      <div class="prompt-chip" onclick="setTask('Summarize: ')">📄 Summarize</div>
+      <div class="prompt-chip" onclick="setTask('Translate to ')">🌐 Translate</div>
+    </div>
+    <div class="q-grid">
+      <div class="q-tile" onclick="setTask('Help me plan ')"><i class="fa-solid fa-layer-group"></i><h3>Plan Projects</h3><p>Organize your big ideas.</p></div>
+      <div class="q-tile" onclick="setTask('Fix this code:\n')"><i class="fa-solid fa-code"></i><h3>Solve Code</h3><p>Debug errors fast.</p></div>
+      <div class="q-tile" onclick="setTask('Write a ')"><i class="fa-solid fa-pen-nib"></i><h3>Write Content</h3><p>Draft with AI precision.</p></div>
+      <div class="q-tile" onclick="setTask('Explain ')"><i class="fa-solid fa-lightbulb"></i><h3>Learn Anything</h3><p>Get instant clarity.</p></div>
+    </div>
+  </div>
+  <div id="chat-view"></div>
+</main>
+
+<div class="input-wrap">
+  <div class="input-box">
+    <div class="ic-btn ic-mic" id="mic-btn" onclick="startVoice()"><i class="fa-solid fa-microphone"></i></div>
+    <div style="flex:1;display:flex;flex-direction:column;">
+      <textarea id="user-input" rows="1" placeholder="Ask Nimah OS X anything..." oninput="autoH(this);updateCharCounter(this)" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMessage();}"></textarea>
+      <div class="input-toolbar">
+        <button class="input-toolbar-btn" id="btn-web" onclick="toggleWebSearch()" title="Web Search"><i class="fa-solid fa-globe"></i> Web</button>
+        <button class="input-toolbar-btn" id="btn-code" onclick="insertCodeBlock()" title="Code Mode"><i class="fa-solid fa-code"></i> Code</button>
+        <button class="input-toolbar-btn" id="btn-clear" onclick="clearChat()" title="Clear chat"><i class="fa-solid fa-trash"></i> Clear</button>
+        <div class="char-counter" id="char-counter">0</div>
+      </div>
+    </div>
+    <button class="ic-btn ic-send" id="send-btn" onclick="sendMessage()"><i class="fa-solid fa-paper-plane"></i></button>
+  </div>
+</div>
+
+<div class="footer-bar" id="footer-bar">
+  @<span id="trigger-2026">2026</span> All Rights Reserved | Engineered By Nimah Developer
+</div>
+
+<script type="module">
+import{initializeApp}from"https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import{getAuth,signInWithEmailAndPassword,createUserWithEmailAndPassword,onAuthStateChanged,signOut,sendEmailVerification}from"https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import{getDatabase,ref,set,get,onValue,update,push,remove,query,orderByChild,limitToLast}from"https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+const FB={
+  apiKey:"AIzaSyCl6DQ7NP7V3vCAQ7FflK4okeZGyjtXK_w",
+  authDomain:"nimah-os-x.firebaseapp.com",
+  databaseURL:"https://nimah-os-x-default-rtdb.firebaseio.com",
+  projectId:"nimah-os-x",
+  storageBucket:"nimah-os-x.firebasestorage.app",
+  messagingSenderId:"456856923621",
+  appId:"1:456856923621:web:1e4f929196f7076a94530c"
+};
+const app=initializeApp(FB);
+const auth=getAuth(app);
+const db=getDatabase(app);
+
+let currentUser=null;
+let currentChatId=null;
+let chatHistory=[];// [{role,content,time}]
+let conversations=[];// list of saved convos
+
+const GROQ_MODELS=[
+  {id:"llama-3.3-70b-versatile",name:"Llama 3.3 70B",provider:"Meta / Groq",icon:"fa-fire",badge:"powerful"},
+  {id:"llama-3.1-8b-instant",name:"Llama 3.1 8B",provider:"Meta / Groq",icon:"fa-bolt",badge:"fast"},
+  {id:"llama3-70b-8192",name:"Llama 3 70B",provider:"Meta / Groq",icon:"fa-fire",badge:"smart"},
+  {id:"llama3-8b-8192",name:"Llama 3 8B",provider:"Meta / Groq",icon:"fa-feather",badge:"fast"},
+  {id:"mixtral-8x7b-32768",name:"Mixtral 8x7B",provider:"Mistral / Groq",icon:"fa-wind",badge:"smart"},
+  {id:"gemma2-9b-it",name:"Gemma 2 9B",provider:"Google / Groq",icon:"fa-brands fa-google",badge:"fast"},
+  {id:"deepseek-r1-distill-llama-70b",name:"DeepSeek R1 70B",provider:"DeepSeek / Groq",icon:"fa-magnifying-glass",badge:"smart"},
+];
+const OPENROUTER_MODELS=[
+  {id:"google/gemini-2.0-flash-001",name:"Gemini 2.0 Flash",provider:"Google",icon:"fa-bolt",badge:"fast"},
+  {id:"google/gemini-2.5-pro-preview",name:"Gemini 2.5 Pro",provider:"Google",icon:"fa-star",badge:"powerful"},
+  {id:"openai/gpt-4o",name:"GPT-4o",provider:"OpenAI",icon:"fa-brain",badge:"powerful"},
+  {id:"openai/gpt-4o-mini",name:"GPT-4o Mini",provider:"OpenAI",icon:"fa-feather",badge:"fast"},
+  {id:"anthropic/claude-3.5-sonnet",name:"Claude 3.5 Sonnet",provider:"Anthropic",icon:"fa-c",badge:"smart"},
+  {id:"anthropic/claude-3-haiku",name:"Claude 3 Haiku",provider:"Anthropic",icon:"fa-feather",badge:"fast"},
+  {id:"meta-llama/llama-3.1-8b-instruct:free",name:"Llama 3.1 8B (Free)",provider:"Meta",icon:"fa-fire",badge:"free"},
+  {id:"mistralai/mistral-7b-instruct:free",name:"Mistral 7B (Free)",provider:"Mistral",icon:"fa-wind",badge:"free"},
+  {id:"deepseek/deepseek-chat",name:"DeepSeek Chat",provider:"DeepSeek",icon:"fa-magnifying-glass",badge:"smart"},
+  {id:"nousresearch/hermes-3-llama-3.1-405b:free",name:"Hermes 3 405B (Free)",provider:"NousResearch",icon:"fa-fire",badge:"free"},
+];
+
+let C={
+  brand:"NIMAH OS X",browserTitle:"NIMAH OS X | PRO",tagline:"NEXT-GEN SYSTEM",
+  logoUrl:"",faviconUrl:"",accent:"#00d2ff",accent2:"#7b2fff",
+  cardStyle:"glass",layoutStyle:"default",fontDisplay:"Orbitron",fontBody:"Plus Jakarta Sans",
+  bgType:"gradient",bgColor:"#000000",bgUrl:"",animSpeed:"normal",animStyle:"ease",
+  headerBrand:"NIMAH OS X",headerVersion:"SYSTEM v4.0.8 PRO",
+  footer:"@2026 All Rights Reserved | Engineered By Nimah Developer",
+  greeting:"Welcome Back",subGreet:"Your AI operating system is ready.",
+  splashText:"INITIALIZING CORE SYSTEMS",splashDuration:2200,
+  contentWidth:"940",borderRadius:"20px",apiKey:"",apiProvider:"groq",
+  systemPrompt:"You are Nimah, an advanced AI assistant. Be concise, smart and professional. Format responses in markdown when helpful.",
+  aiModel:"llama-3.3-70b-versatile",adminPass:"Nimah0717",clicks:3,
+  voiceLang:"en-US",voiceAutoSend:"false",voiceTts:"false",voiceSpeed:"1.0",
+  saveChatHistory:"true",maxHistoryItems:50,showTimestamps:"true",markdownEnabled:"true",
+  contextWindow:10,showQuickPrompts:"true",aiTemp:0.7,aiMaxTokens:2048,
+  webSearchEnabled:false,customModels:[],
+  seoTitle:"NIMAH OS X | Pro AI Operating System",
+  seoDesc:"Next-generation AI operating system with ultra-fast inference and stunning UI.",
+  seoKeywords:"AI chat, GPT-4o, Claude AI, Gemini, Llama 3, AI assistant"
+};
+
+// SPLASH
+let splashGone=false;
+function hideSplash(){if(splashGone)return;splashGone=true;document.getElementById('splash').classList.add('gone');}
+setTimeout(hideSplash,C.splashDuration);
+
+// FIREBASE SYNC
+onValue(ref(db,'settings/core'),(snap)=>{
+  if(snap.exists()){
+    Object.assign(C,snap.val());
+    if(snap.val().customModels)C.customModels=snap.val().customModels||[];
+    applyTheme();updateAiStatusPill();
+  }
+});
+
+// THEME
+function applyTheme(){
+  const r=document.documentElement.style;
+  const acc=C.accent||'#00d2ff',acc2=C.accent2||'#7b2fff';
+  r.setProperty('--acc',acc);r.setProperty('--acc-g',acc+'5a');r.setProperty('--border',acc+'26');
+  r.setProperty('--acc2',acc2);r.setProperty('--acc2-g',acc2+'5a');
+  r.setProperty('--max-w',(C.contentWidth||'940')+'px');
+  r.setProperty('--radius',C.borderRadius||'20px');
+  document.title=C.browserTitle||C.brand+' | PRO';
+  const hb=C.headerBrand||C.brand||'NIMAH OS X',hp=hb.split(' ');
+  document.getElementById('ui-h-brand').innerHTML=`<span>${hp[0]}</span> ${hp.slice(1).join(' ')}`;
+  document.getElementById('ui-h-ver').textContent=C.headerVersion||'SYSTEM v4.0.8 PRO';
+  const ab=document.getElementById('ui-auth-brand');
+  if(ab){const p=(C.brand||'NIMAH OS X').split(' ');ab.innerHTML=`<span>${p[0]}</span> ${p.slice(1).join(' ')}<small>${C.tagline||'NEXT-GEN SYSTEM'}</small>`;}
+  const spb=document.getElementById('sp-brand');if(spb)spb.textContent=(C.brand||'NIMAH OS X').split(' ')[0];
+  const spt=document.getElementById('sp-txt');if(spt)spt.innerHTML=(C.splashText||'INITIALIZING CORE SYSTEMS')+'<span class="blink">.</span><span class="blink">.</span><span class="blink">.</span>';
+  renderFooter();
+  if(C.faviconUrl){let fav=document.querySelector('link[rel="icon"]');if(!fav){fav=document.createElement('link');fav.rel='icon';document.head.appendChild(fav);}fav.href=C.faviconUrl;}
+  if(!splashGone&&C.splashDuration)setTimeout(hideSplash,Number(C.splashDuration)||2200);
+  const statsBar=document.getElementById('stats-bar');
+  if(statsBar){
+    document.getElementById('stat-model').textContent=(C.aiModel||'—').split('/').pop().substring(0,15);
+    document.getElementById('stat-provider').textContent=(C.apiProvider||'groq').toUpperCase();
+  }
+}
+
+function updateAiStatusPill(){
+  const pill=document.getElementById('ai-status-pill');if(!pill)return;
+  if(C.apiKey&&C.apiKey.length>10){pill.textContent='AI ONLINE';pill.style.color='var(--online)';pill.style.borderColor='rgba(0,255,170,.2)';pill.style.background='rgba(0,255,170,.06)';}
+  else{pill.textContent='NO API KEY';pill.style.color='var(--err)';pill.style.borderColor='rgba(255,68,102,.2)';pill.style.background='rgba(255,68,102,.06)';}
+}
+
+// FOOTER
+function renderFooter(){
+  const fb=document.getElementById('footer-bar');if(!fb)return;
+  const ft=C.footer||'@2026 All Rights Reserved | Engineered By Nimah Developer';
+  if(ft.includes('2026')){const parts=ft.split('2026');fb.innerHTML=parts[0]+'<span id="trigger-2026">2026</span>'+parts.slice(1).join('2026');}
+  else{fb.textContent=ft;}
+  bindTrigger();
+}
+
+let clickCount=0,clickTimer=null;
+function bindTrigger(){
+  const t=document.getElementById('trigger-2026');if(!t)return;
+  t.style.cssText='cursor:pointer;pointer-events:all;transition:color .2s;display:inline;';
+  t.onclick=()=>{clickCount++;clearTimeout(clickTimer);clickTimer=setTimeout(()=>{clickCount=0;},2500);if(clickCount>=(C.clicks||3)){clickCount=0;clearTimeout(clickTimer);openAdminModal();}};
+}
+bindTrigger();
+
+function openAdminModal(){document.getElementById('admin-pw-modal').classList.add('show');document.getElementById('apw-input').value='';document.getElementById('apw-error').style.display='none';setTimeout(()=>document.getElementById('apw-input').focus(),120);}
+window.closeAdminModal=()=>document.getElementById('admin-pw-modal').classList.remove('show');
+window.adminUnlock=function(){
+  const val=document.getElementById('apw-input').value;
+  if(val===C.adminPass){document.getElementById('admin-pw-modal').classList.remove('show');document.getElementById('admin-dash').classList.add('show');loadAdminData();}
+  else{document.getElementById('apw-error').style.display='block';document.getElementById('apw-input').value='';document.getElementById('apw-input').focus();const inp=document.getElementById('apw-input');inp.style.borderColor='var(--err)';setTimeout(()=>{inp.style.borderColor='';},1500);}
+};
+
+// AUTH HELPERS
+function showAuthErr(pane,title,msg,showAction=false){
+  if(pane==='login'){const box=document.getElementById('login-err-box');document.getElementById('login-err-title').textContent=title;document.getElementById('login-err-msg').textContent=msg;box.classList.add('show');setTimeout(()=>box.classList.remove('show'),5000);}
+  else{const box=document.getElementById('reg-err-box');const action=document.getElementById('reg-err-action');document.getElementById('reg-err-title').textContent=title;document.getElementById('reg-err-msg').textContent=msg;action.classList.toggle('hidden',!showAction);box.classList.add('show');setTimeout(()=>box.classList.remove('show'),6000);}
+}
+function showAuthOk(msg){const box=document.getElementById('reg-ok-box');document.getElementById('reg-ok-msg').textContent=msg;box.classList.add('show');}
+function clearAuthErr(){document.getElementById('login-err-box').classList.remove('show');document.getElementById('reg-err-box').classList.remove('show');document.getElementById('reg-ok-box').classList.remove('show');}
+function getFirebaseErrMsg(code){
+  const map={'auth/email-already-in-use':'This email is already registered. Please log in instead.','auth/user-not-found':'No account found with this email.','auth/wrong-password':'Incorrect password. Please try again.','auth/invalid-email':'Please enter a valid email address.','auth/weak-password':'Password must be at least 6 characters.','auth/too-many-requests':'Too many failed attempts. Wait a moment and try again.','auth/user-disabled':'This account has been disabled.','auth/network-request-failed':'Network error. Check your internet connection.','auth/invalid-credential':'Invalid email or password.','auth/operation-not-allowed':'Sign-in is currently disabled.'};
+  return map[code]||'Something went wrong. Please try again.';
+}
+
+// AUTH STATE
+onAuthStateChanged(auth,async(user)=>{
+  hideSplash();
+  if(user){
+    if(!user.emailVerified){showToast('⚠️ Please verify your email first','warn');await signOut(auth);return;}
+    currentUser=user;
+    showSuccess();
+    const snap=await get(ref(db,'users/'+user.uid));
+    const name=(snap.val()?.name||'AGENT').toUpperCase();
+    document.getElementById('greet-msg').innerHTML=`${C.greeting||'Welcome Back,'} <span>${name}</span>`;
+    document.getElementById('greet-sub').textContent=C.subGreet||'Your AI operating system is ready.';
+    setTimeout(()=>{document.getElementById('auth-screen').classList.add('gone');},1200);
+    loadChatHistory();
+    // Show stats bar
+    const sb=document.getElementById('stats-bar');if(sb)sb.style.display='flex';
+  }else{
+    currentUser=null;
+    document.getElementById('auth-screen').classList.remove('gone');
+    document.getElementById('auth-screen').style.display='flex';
+  }
+});
+
+function showSuccess(){const o=document.getElementById('success-ov');o.style.display='flex';setTimeout(()=>{o.style.display='none';},1600);}
+
+window.handleLogin=async function(){
+  clearAuthErr();
+  const e=document.getElementById('log-email').value.trim();
+  const p=document.getElementById('log-pass').value;
+  if(!e||!p){showAuthErr('login','Missing Fields','Please fill in your email and password.');return;}
+  const btn=document.getElementById('btn-login');
+  btn.disabled=true;btn.innerHTML='<i class="fa-solid fa-circle-notch fa-spin"></i> VERIFYING...';
+  try{await signInWithEmailAndPassword(auth,e,p);}
+  catch(err){showAuthErr('login','Login Failed',getFirebaseErrMsg(err.code));}
+  finally{btn.disabled=false;btn.innerHTML='<i class="fa-solid fa-bolt"></i> ENTER CORE';}
+};
+
+window.handleRegister=async function(){
+  clearAuthErr();
+  const n=document.getElementById('reg-name').value.trim();
+  const e=document.getElementById('reg-email').value.trim();
+  const p=document.getElementById('reg-pass').value;
+  if(!n||!e||!p){showAuthErr('reg','Missing Fields','Please fill in all fields to continue.');return;}
+  if(p.length<6){showAuthErr('reg','Weak Password','Password must be at least 6 characters long.');return;}
+  if(!e.includes('@')){showAuthErr('reg','Invalid Email','Please enter a valid email address.');return;}
+  const btn=document.getElementById('btn-register');
+  btn.disabled=true;btn.innerHTML='<i class="fa-solid fa-circle-notch fa-spin"></i> INITIALIZING...';
+  try{
+    const res=await createUserWithEmailAndPassword(auth,e,p);
+    await sendEmailVerification(res.user);
+    await set(ref(db,'users/'+res.user.uid),{name:n,email:e,createdAt:Date.now()});
+    await signOut(auth);
+    showAuthOk('Verification email sent to '+e+'. Please verify before logging in.');
+    showToast('✅ Check your email to verify your account','ok');
+    document.getElementById('reg-name').value='';document.getElementById('reg-email').value='';document.getElementById('reg-pass').value='';
+    setTimeout(()=>toggleAuth(false),3000);
+  }catch(err){
+    if(err.code==='auth/email-already-in-use'){showAuthErr('reg','Email Already Registered','An account with this email already exists. Click below to log in.',true);}
+    else{showAuthErr('reg','Registration Failed',getFirebaseErrMsg(err.code));}
+  }finally{btn.disabled=false;btn.innerHTML='<i class="fa-solid fa-user-plus"></i> INITIALIZE AGENT';}
+};
+
+window.handleLogout=function(){signOut(auth).then(()=>location.reload());};
+window.toggleAuth=function(isReg){clearAuthErr();document.getElementById('login-pane').classList.toggle('hidden',isReg);document.getElementById('register-pane').classList.toggle('hidden',!isReg);};
+
+// ── CHAT HISTORY SYSTEM ──
+async function loadChatHistory(){
+  if(!currentUser||C.saveChatHistory==='false')return;
+  try{
+    const snap=await get(ref(db,'chats/'+currentUser.uid));
+    conversations=[];
+    if(snap.exists()){
+      snap.forEach(child=>{const v=child.val();if(v)conversations.push({id:child.key,...v});});
+      conversations.sort((a,b)=>(b.updatedAt||0)-(a.updatedAt||0));
+    }
+    renderHistoryList();
+    updateStats();
+  }catch(e){console.error('History load error:',e);}
+}
+
+function renderHistoryList(){
+  const list=document.getElementById('hist-list');if(!list)return;
+  if(conversations.length===0){list.innerHTML='<div class="empty-history"><i class="fa-solid fa-message" style="font-size:1.5rem;color:var(--dim);margin-bottom:12px;display:block;"></i>No conversations yet.<br>Start chatting to build history.</div>';return;}
+  const today=new Date().toDateString();
+  const groups={Today:[],Yesterday:[],Earlier:[]};
+  conversations.forEach(c=>{
+    const d=new Date(c.updatedAt||c.createdAt||Date.now()).toDateString();
+    if(d===today)groups.Today.push(c);
+    else if(d===new Date(Date.now()-86400000).toDateString())groups.Yesterday.push(c);
+    else groups.Earlier.push(c);
+  });
+  let html='';
+  for(const[grp,items]of Object.entries(groups)){
+    if(!items.length)continue;
+    html+=`<div class="history-section"><div class="history-section-title">${grp}</div>`;
+    items.forEach(c=>{
+      const title=c.title||'New conversation';
+      const time=c.updatedAt?new Date(c.updatedAt).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}):'';
+      html+=`<div class="history-item${currentChatId===c.id?' active':''}" onclick="loadConversation('${c.id}')">
+        <div class="history-item-icon"><i class="fa-solid fa-message"></i></div>
+        <div class="history-item-content"><div class="history-item-title">${escHtml(title)}</div><div class="history-item-meta">${time}</div></div>
+        <button class="history-item-del" onclick="event.stopPropagation();deleteConversation('${c.id}')"><i class="fa-solid fa-xmark"></i></button>
+      </div>`;
+    });
+    html+='</div>';
+  }
+  list.innerHTML=html;
+  const dot=document.getElementById('hist-dot');
+  if(dot)dot.classList.toggle('show',conversations.length>0);
+}
+
+async function loadConversation(id){
+  const conv=conversations.find(c=>c.id===id);if(!conv)return;
+  currentChatId=id;chatHistory=conv.messages||[];
+  document.getElementById('dashboard').style.display='none';
+  const cv=document.getElementById('chat-view');cv.style.display='flex';cv.innerHTML='';
+  chatHistory.forEach(msg=>{
+    if(msg.role!=='system'){
+      const wrap=document.createElement('div');wrap.className=`bubble-wrap ${msg.role==='user'?'user-wrap':'ai-wrap'}`;
+      const bub=document.createElement('div');bub.className=`bubble ${msg.role==='user'?'user':'ai'}`;
+      if(msg.role==='assistant'&&C.markdownEnabled!=='false'){bub.innerHTML=renderMarkdown(msg.content);}
+      else{bub.textContent=msg.content;}
+      if(msg.role==='assistant'){const actions=makeBubbleActions(msg.content);wrap.append(bub,actions);}
+      else{wrap.appendChild(bub);}
+      if(C.showTimestamps==='true'&&msg.time){const meta=document.createElement('div');meta.className='bubble-meta'+(msg.role==='user'?' right':'');meta.textContent=new Date(msg.time).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});wrap.appendChild(meta);}
+      cv.appendChild(wrap);
+    }
+  });
+  cv.scrollTop=cv.scrollHeight;
+  renderHistoryList();
+}
+
+async function saveConversation(){
+  if(!currentUser||C.saveChatHistory==='false'||chatHistory.length===0)return;
+  try{
+    const title=chatHistory.find(m=>m.role==='user')?.content?.slice(0,50)||'New conversation';
+    const data={title,messages:chatHistory,updatedAt:Date.now(),model:C.aiModel,provider:C.apiProvider};
+    if(currentChatId){
+      await update(ref(db,'chats/'+currentUser.uid+'/'+currentChatId),data);
+    }else{
+      const r=await push(ref(db,'chats/'+currentUser.uid),{...data,createdAt:Date.now()});
+      currentChatId=r.key;
+    }
+    await loadChatHistory();
+  }catch(e){console.error('Save error:',e);}
+}
+
+window.deleteConversation=async function(id){
+  if(!confirm('Delete this conversation?'))return;
+  try{
+    await remove(ref(db,'chats/'+currentUser.uid+'/'+id));
+    if(currentChatId===id){newChat();}
+    await loadChatHistory();
+    showToast('🗑️ Conversation deleted','ok');
+  }catch(e){showToast('❌ Delete failed','error');}
+};
+
+window.newChat=function(){
+  currentChatId=null;chatHistory=[];
+  const cv=document.getElementById('chat-view');cv.style.display='none';cv.innerHTML='';
+  document.getElementById('dashboard').style.display='block';
+  document.getElementById('user-input').value='';
+  window.autoH(document.getElementById('user-input'));
+  renderHistoryList();
+};
+
+function updateStats(){
+  const totalMsgs=conversations.reduce((s,c)=>(s+(c.messages?.filter(m=>m.role==='user').length||0)),0);
+  const elC=document.getElementById('stat-convs');const elM=document.getElementById('stat-msgs');
+  if(elC)elC.textContent=conversations.length;if(elM)elM.textContent=totalMsgs;
+}
+
+// HISTORY PANEL TOGGLE
+let histOpen=false;
+window.toggleHistPanel=function(){
+  const panel=document.getElementById('hist-panel');histOpen=!histOpen;
+  if(histOpen){panel.style.display='block';setTimeout(()=>panel.style.transform='translateX(0)',10);}
+  else{panel.style.transform='translateX(100%)';setTimeout(()=>panel.style.display='none',300);}
+};
+
+// ADMIN
+window.closeAdmin=()=>document.getElementById('admin-dash').classList.remove('show');
+window.toggleSidebar=()=>document.getElementById('adm-sb').classList.toggle('open');
+
+const TAB_LABELS={general:'General Settings',branding:'Branding',theme:'Theme & Colors',fonts:'Font Manager',background:'Background',animations:'Animations',header:'Header',footer:'Footer',homepage:'Homepage',loading:'Loading Screen',layout:'Layout',ai:'AI Manager',model:'Model Manager',prompt:'Prompt Manager',voice:'Voice Settings','chat-settings':'Chat Settings',security:'Security',users:'Users',analytics:'Analytics',monitor:'System Monitor',backup:'Backup & Restore',seo:'SEO Manager',devtools:'Dev Tools'};
+
+window.adTab=function(id,el){
+  document.querySelectorAll('.adm-nav').forEach(n=>n.classList.remove('on'));
+  if(el)el.classList.add('on');
+  document.querySelectorAll('.adm-sec').forEach(s=>s.classList.remove('on'));
+  const sec=document.getElementById('sec-'+id);if(sec)sec.classList.add('on');
+  document.getElementById('adm-hdr-title').textContent=TAB_LABELS[id]||id;
+  if(id==='users'||id==='analytics')loadUsers();
+  if(id==='devtools')devRefresh();
+  if(id==='model')renderModelPicker();
+  document.getElementById('adm-sb').classList.remove('open');
+};
+
+function g(id){const el=document.getElementById(id);return el?el.value.trim():'';}
+
+window.switchProvider=function(provider){
+  C.apiProvider=provider;
+  document.getElementById('tab-groq').classList.toggle('on',provider==='groq');
+  document.getElementById('tab-openrouter').classList.toggle('on',provider==='openrouter');
+  document.getElementById('provider-groq-info').style.display=provider==='groq'?'block':'none';
+  document.getElementById('provider-or-info').style.display=provider==='openrouter'?'block':'none';
+  const kl=document.getElementById('api-key-label');const ki=document.getElementById('ai-key');
+  if(provider==='groq'){kl.textContent='Groq API Key';ki.placeholder='gsk_...';}
+  else{kl.textContent='OpenRouter API Key';ki.placeholder='sk-or-v1-...';}
+  renderModelPicker();updateApiStatusBadge('neutral');
+};
+
+function loadAdminData(){
+  const s=(id,val)=>{const el=document.getElementById(id);if(el)el.value=val||'';};
+  s('g-brand',C.brand);s('g-title',C.browserTitle);s('g-welcome',C.greeting);s('g-sub',C.subGreet);
+  s('b-name',C.brand);s('b-tag',C.tagline);s('b-logo',C.logoUrl);s('b-fav',C.faviconUrl);
+  s('t-acc',C.accent);s('t-acc2',C.accent2);s('t-card',C.cardStyle);s('t-layout',C.layoutStyle);
+  try{document.getElementById('t-acc-pk').value=C.accent||'#00d2ff';}catch(x){}
+  try{document.getElementById('t-acc2-pk').value=C.accent2||'#7b2fff';}catch(x){}
+  s('f-display',C.fontDisplay);s('f-body',C.fontBody);
+  s('bg-type',C.bgType);s('bg-color',C.bgColor);s('bg-url',C.bgUrl);
+  s('an-speed',C.animSpeed);s('an-style',C.animStyle);
+  s('hd-brand',C.headerBrand||C.brand);s('hd-ver',C.headerVersion);
+  s('ft-text',C.footer);
+  const fch=document.getElementById('ft-click-hint');if(fch)fch.textContent=C.clicks||3;
+  s('hp-greet',C.greeting);s('hp-sub',C.subGreet);
+  s('ld-txt',C.splashText);s('ld-dur',C.splashDuration||2200);
+  s('ly-width',C.contentWidth);s('ly-radius',C.borderRadius);
+  s('ai-key',C.apiKey);
+  s('ai-key-show',C.apiKey?C.apiKey.slice(0,12)+'••••••••'+C.apiKey.slice(-6):'(not set)');
+  s('ai-prompt',C.systemPrompt);s('ai-model-current',C.aiModel||'Not set');
+  s('ai-temp',C.aiTemp||0.7);s('ai-maxtok',C.aiMaxTokens||2048);
+  s('pm-prompt',C.systemPrompt);s('sc-pass',C.adminPass);s('sc-clicks',C.clicks);
+  s('vc-lang',C.voiceLang);s('vc-auto',C.voiceAutoSend);s('vc-tts',C.voiceTts||'false');s('vc-speed',C.voiceSpeed||'1.0');
+  s('cs-save',C.saveChatHistory||'true');s('cs-maxhist',C.maxHistoryItems||50);
+  s('cs-ts',C.showTimestamps||'true');s('cs-md',C.markdownEnabled||'true');
+  s('cs-ctx',C.contextWindow||10);s('cs-qp',C.showQuickPrompts||'true');
+  s('seo-title',C.seoTitle);s('seo-desc',C.seoDesc);s('seo-kw',C.seoKeywords);
+  s('seo-og-img',C.seoOgImg||'');s('seo-canonical',C.seoCanonical||'');
+  window.switchProvider(C.apiProvider||'groq');
+  const syncPk=(pk,tx)=>{const p=document.getElementById(pk),t=document.getElementById(tx);if(p&&t){p.oninput=()=>{t.value=p.value;};t.oninput=()=>{try{p.value=t.value;}catch(x){};};}};
+  syncPk('t-acc-pk','t-acc');syncPk('t-acc2-pk','t-acc2');
+  document.getElementById('ai-key').addEventListener('input',()=>{const v=document.getElementById('ai-key').value.trim();document.getElementById('ai-key-show').value=v?v.slice(0,12)+'••••••••'+v.slice(-6):'';});
+  renderModelPicker();loadUsers();updateApiStatusBadge('neutral');
+}
+
+function getModelsForProvider(){
+  const base=(C.apiProvider==='openrouter')?[...OPENROUTER_MODELS]:[...GROQ_MODELS];
+  const custom=(C.customModels||[]).filter(cm=>!base.find(m=>m.id===cm.id));
+  return [...base,...custom];
+}
+
+function renderModelPicker(){
+  const mp=document.getElementById('model-picker');if(!mp)return;
+  const models=getModelsForProvider();
+  mp.innerHTML=models.map(m=>`<div class="model-card ${C.aiModel===m.id?'sel':''}" data-id="${m.id}" onclick="selectModel('${m.id}')"><div class="model-card-sel-dot"></div><div class="model-card-icon"><i class="fa-solid ${m.icon||'fa-microchip'}"></i></div><div class="model-card-name">${m.name}</div><div class="model-card-provider">${m.provider||'Unknown'}</div><div class="model-card-badge badge-${m.badge||'smart'}">${(m.badge||'smart').toUpperCase()}</div></div>`).join('');
+}
+
+window.selectModel=function(id){
+  C.aiModel=id;
+  document.querySelectorAll('.model-card').forEach(c=>{c.classList.toggle('sel',c.dataset.id===id);});
+  const cur=document.getElementById('ai-model-current');if(cur)cur.value=id;
+  const sm=document.getElementById('stat-model');if(sm)sm.textContent=id.split('/').pop().substring(0,15);
+  showToast('✅ Model: '+id.split('/').pop(),'ok');
+};
+
+window.addCustomModel=function(){
+  const id=g('custom-model-id'),name=g('custom-model-name');
+  if(!id){showToast('⚠️ Enter a model ID','warn');return;}
+  const custom=C.customModels||[];
+  if(custom.find(m=>m.id===id)){showToast('⚠️ Model already exists','warn');return;}
+  custom.push({id,name:name||id.split('/').pop(),provider:'Custom',icon:'fa-microchip',badge:'smart'});
+  C.customModels=custom;renderModelPicker();
+  document.getElementById('custom-model-id').value='';document.getElementById('custom-model-name').value='';
+  showToast('✅ Custom model added','ok');
+};
+
+window.saveAll=async function(){
+  const nd={
+    brand:g('g-brand')||g('b-name')||C.brand,browserTitle:g('g-title')||C.browserTitle,
+    greeting:g('g-welcome')||g('hp-greet')||C.greeting,subGreet:g('g-sub')||g('hp-sub')||C.subGreet,
+    tagline:g('b-tag')||C.tagline,logoUrl:g('b-logo'),faviconUrl:g('b-fav'),
+    accent:g('t-acc')||C.accent,accent2:g('t-acc2')||C.accent2,cardStyle:g('t-card'),layoutStyle:g('t-layout'),
+    fontDisplay:g('f-display'),fontBody:g('f-body'),bgType:g('bg-type'),bgColor:g('bg-color'),bgUrl:g('bg-url'),
+    animSpeed:g('an-speed'),animStyle:g('an-style'),headerBrand:g('hd-brand')||C.brand,headerVersion:g('hd-ver'),
+    footer:g('ft-text')||C.footer,splashText:g('ld-txt'),splashDuration:parseInt(g('ld-dur'))||2200,
+    contentWidth:g('ly-width'),borderRadius:g('ly-radius'),
+    apiKey:g('ai-key')||C.apiKey,apiProvider:C.apiProvider||'groq',
+    systemPrompt:g('ai-prompt')||g('pm-prompt')||C.systemPrompt,
+    aiModel:C.aiModel,aiTemp:parseFloat(g('ai-temp'))||0.7,aiMaxTokens:parseInt(g('ai-maxtok'))||2048,
+    adminPass:g('sc-pass')||C.adminPass,clicks:parseInt(g('sc-clicks'))||3,
+    voiceLang:g('vc-lang'),voiceAutoSend:g('vc-auto'),voiceTts:g('vc-tts'),voiceSpeed:g('vc-speed'),
+    saveChatHistory:g('cs-save'),maxHistoryItems:parseInt(g('cs-maxhist'))||50,
+    showTimestamps:g('cs-ts'),markdownEnabled:g('cs-md'),contextWindow:parseInt(g('cs-ctx'))||10,
+    showQuickPrompts:g('cs-qp'),
+    seoTitle:g('seo-title'),seoDesc:g('seo-desc'),seoKeywords:g('seo-kw'),
+    seoOgImg:g('seo-og-img'),seoCanonical:g('seo-canonical'),
+    customModels:C.customModels||[]
+  };
+  try{await update(ref(db,'settings/core'),nd);Object.assign(C,nd);applyTheme();updateAiStatusPill();applySeoMeta();showToast('✅ All changes saved & synced','ok');}
+  catch(e){showToast('❌ Save failed: '+e.message,'error');}
+};
+
+window.testApiKey=async function(){
+  const key=g('ai-key')||C.apiKey;if(!key){showToast('⚠️ Enter an API key first','warn');return;}
+  updateApiStatusBadge('checking');showToast('🔄 Testing connection...','ok');
+  const provider=C.apiProvider||'groq';
+  try{
+    const testUrl=provider==='groq'?'https://api.groq.com/openai/v1/models':'https://openrouter.ai/api/v1/models';
+    const res=await fetch(testUrl,{headers:{'Authorization':'Bearer '+key,'Content-Type':'application/json'}});
+    if(res.ok){updateApiStatusBadge('ok');const mo=document.getElementById('mon-or');const mb=document.getElementById('mon-or-bar');if(mo){mo.textContent='CONNECTED';mo.style.color='var(--online)';}if(mb){mb.style.width='100%';}showToast('✅ API key valid!','ok');}
+    else{const err=await res.json().catch(()=>({}));updateApiStatusBadge('fail');showToast('❌ Invalid key: '+(err.error?.message||res.status),'error');}
+  }catch(e){updateApiStatusBadge('fail');showToast('❌ Network error','error');}
+};
+
+function updateApiStatusBadge(status){
+  const b=document.getElementById('api-status-badge');if(!b)return;
+  b.className='api-status '+(status==='neutral'?'checking':status);
+  const msgs={ok:'Connected — API key valid',fail:'Connection failed — Check key',checking:'Testing connection...',neutral:'Not tested yet'};
+  b.innerHTML=`<div class="dot"></div><span>${msgs[status]||''}</span>`;
+}
+
+window.loadUsers=async function(){
+  const wrap=document.getElementById('user-list-wrap');if(!wrap)return;
+  wrap.innerHTML='<div style="padding:20px;text-align:center;color:var(--dim);font-size:.76rem;">Loading...</div>';
+  try{
+    const snap=await get(ref(db,'users'));
+    if(!snap.exists()){wrap.innerHTML='<div style="padding:20px;text-align:center;color:var(--dim);font-size:.76rem;">No agents found.</div>';return;}
+    let html='',count=0;
+    snap.forEach(u=>{count++;const v=u.val();const ini=(v.name||'A').charAt(0).toUpperCase();html+=`<div class="user-row"><div class="user-av">${ini}</div><div class="user-info"><div class="un">${v.name||'Unknown'}</div><div class="ue">${v.email||''}</div></div><div class="user-badge">ACTIVE</div></div>`;});
+    wrap.innerHTML=html;const s=document.getElementById('stat-users');if(s)s.textContent=count;
+  }catch(e){wrap.innerHTML='<div style="padding:20px;text-align:center;color:var(--err);font-size:.76rem;">Failed to load.</div>';}
+};
+
+window.exportCfg=function(){const blob=new Blob([JSON.stringify(C,null,2)],{type:'application/json'});const u=URL.createObjectURL(blob);const a=document.createElement('a');a.href=u;a.download='nimah-config.json';a.click();URL.revokeObjectURL(u);};
+window.importCfg=function(){const txt=prompt('Paste JSON config:');if(!txt)return;try{const p=JSON.parse(txt);update(ref(db,'settings/core'),p).then(()=>{showToast('✅ Config imported!','ok');setTimeout(()=>location.reload(),1000);});}catch{showToast('❌ Invalid JSON','error');}};
+window.devRefresh=function(){const el=document.getElementById('dev-raw');if(el)el.value=JSON.stringify(C,null,2);};
+window.devApply=async function(){const el=document.getElementById('dev-raw');try{const p=JSON.parse(el.value);await update(ref(db,'settings/core'),p);showToast('✅ Raw config applied','ok');}catch{showToast('❌ Invalid JSON','error');}};
+
+// PROMPT PRESETS
+const PROMPT_PRESETS={
+  professional:"You are Nimah, a professional AI assistant for NIMAH OS X. Provide clear, precise, and professional responses. Use structured formatting when appropriate. Always be accurate, concise, and business-appropriate.",
+  creative:"You are Nimah, a creative AI muse for NIMAH OS X. Think outside the box, use vivid language, and approach problems with imagination and originality. Embrace creative freedom while remaining helpful.",
+  technical:"You are Nimah, a senior software engineer and technical expert. Provide detailed technical explanations with code examples, best practices, and architectural insights. Use markdown formatting for code blocks.",
+  tutor:"You are Nimah, a patient and knowledgeable tutor for NIMAH OS X. Break down complex topics into easy-to-understand steps. Use examples, analogies, and encourage questions. Adapt to the learner's level.",
+  concise:"You are Nimah. Be extremely concise. Give direct answers in 1-3 sentences maximum unless the task requires more. No fluff, no filler. Get straight to the point."
+};
+window.setPromptPreset=function(type){
+  const el=document.getElementById('pm-prompt');const ai=document.getElementById('ai-prompt');
+  const txt=PROMPT_PRESETS[type]||'';
+  if(el)el.value=txt;if(ai)ai.value=txt;
+  showToast('✅ Prompt preset applied','ok');
+};
+
+// SEO
+function applySeoMeta(){
+  const setMeta=(name,content,isProp=false)=>{
+    const sel=isProp?`meta[property="${name}"]`:`meta[name="${name}"]`;
+    let el=document.querySelector(sel);
+    if(!el){el=document.createElement('meta');if(isProp)el.setAttribute('property',name);else el.setAttribute('name',name);document.head.appendChild(el);}
+    el.setAttribute('content',content);
+  };
+  if(C.seoTitle){document.title=C.seoTitle;setMeta('og:title',C.seoTitle,true);}
+  if(C.seoDesc){setMeta('description',C.seoDesc);setMeta('og:description',C.seoDesc,true);}
+  if(C.seoKeywords)setMeta('keywords',C.seoKeywords);
+  if(C.seoOgImg)setMeta('og:image',C.seoOgImg,true);
+  if(C.seoCanonical){let canon=document.querySelector('link[rel="canonical"]');if(!canon){canon=document.createElement('link');canon.rel='canonical';document.head.appendChild(canon);}canon.href=C.seoCanonical;}
+}
+window.saveSeo=async function(){
+  const nd={seoTitle:g('seo-title'),seoDesc:g('seo-desc'),seoKeywords:g('seo-kw'),seoOgImg:g('seo-og-img'),seoCanonical:g('seo-canonical')};
+  Object.assign(C,nd);await update(ref(db,'settings/core'),nd);applySeoMeta();showToast('✅ SEO tags applied','ok');
+};
+window.autoSeo=function(){
+  const brand=C.brand||'NIMAH OS X';
+  document.getElementById('seo-title').value=`${brand} | Pro AI Operating System`;
+  document.getElementById('seo-desc').value=`${brand} — Next-generation AI platform powered by ${C.aiModel||'advanced AI'}. Chat with GPT-4o, Claude, Gemini, and Llama 3 in a stunning futuristic interface.`;
+  document.getElementById('seo-kw').value='AI chat, artificial intelligence, GPT-4o, Claude AI, Gemini AI, Llama 3, AI assistant, chatbot, '+brand.toLowerCase()+', AI operating system, voice AI';
+  showToast('✅ SEO auto-generated — click Save to apply','ok');
+};
+
+// ── MARKDOWN RENDERER ──
+function renderMarkdown(text){
+  if(!text)return'';
+  return text
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/```(\w+)?\n?([\s\S]*?)```/g,(_,lang,code)=>`<pre><code class="lang-${lang||'text'}">${code.trim()}</code></pre>`)
+    .replace(/`([^`]+)`/g,'<code>$1</code>')
+    .replace(/^### (.+)$/gm,'<h3>$1</h3>')
+    .replace(/^## (.+)$/gm,'<h2>$1</h2>')
+    .replace(/^# (.+)$/gm,'<h1>$1</h1>')
+    .replace(/^\*\*\*(.+)\*\*\*$/gm,'<strong><em>$1</em></strong>')
+    .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+    .replace(/\*(.+?)\*/g,'<em>$1</em>')
+    .replace(/^> (.+)$/gm,'<blockquote>$1</blockquote>')
+    .replace(/^---$/gm,'<hr>')
+    .replace(/^\- (.+)$/gm,'<li>$1</li>')
+    .replace(/^(\d+)\. (.+)$/gm,'<li>$2</li>')
+    .replace(/(<li>[\s\S]+?<\/li>)/g,'<ul>$1</ul>')
+    .replace(/<\/ul><ul>/g,'')
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g,'<a href="$2" target="_blank" style="color:var(--acc)">$1</a>')
+    .replace(/\n\n/g,'</p><p>').replace(/\n/g,'<br>')
+    .replace(/^(?!<[hupbali]|<\/)/gm,'')
+    .trim();
+}
+
+function escHtml(t){return(t||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+function makeBubbleActions(text){
+  const d=document.createElement('div');d.className='bubble-actions';
+  const copy=document.createElement('button');copy.className='bubble-act-btn';copy.innerHTML='<i class="fa-solid fa-copy"></i> Copy';
+  copy.onclick=()=>{navigator.clipboard.writeText(text).then(()=>{copy.textContent='✅ Copied';setTimeout(()=>{copy.innerHTML='<i class="fa-solid fa-copy"></i> Copy';},1500);});};
+  const speak=document.createElement('button');speak.className='bubble-act-btn';speak.innerHTML='<i class="fa-solid fa-volume-high"></i> Speak';
+  speak.onclick=()=>{speakText(text);};
+  d.append(copy,speak);return d;
+}
+
+// ── TTS ──
+function speakText(text){
+  if(!window.speechSynthesis){showToast('⚠️ TTS not supported','warn');return;}
+  window.speechSynthesis.cancel();
+  const utt=new SpeechSynthesisUtterance(text.replace(/<[^>]+>/g,''));
+  utt.rate=parseFloat(C.voiceSpeed||1.0);
+  utt.lang=C.voiceLang||'en-US';
+  window.speechSynthesis.speak(utt);
+}
+
+// ── CHAT ──
+window.autoH=function(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,140)+'px';};
+window.updateCharCounter=function(el){const cc=document.getElementById('char-counter');if(cc)cc.textContent=el.value.length;};
+
+window.setTask=function(t){
+  const i=document.getElementById('user-input');i.value=t;i.focus();window.autoH(i);
+  updateCharCounter(i);
+  document.getElementById('dashboard').style.display='none';
+  document.getElementById('chat-view').style.display='flex';
+};
+
+window.insertCodeBlock=function(){
+  const i=document.getElementById('user-input');
+  i.value+='\n```\n\n```\n';i.focus();window.autoH(i);
+};
+
+let webSearchMode=false;
+window.toggleWebSearch=function(){
+  webSearchMode=!webSearchMode;
+  const btn=document.getElementById('btn-web');
+  if(btn)btn.classList.toggle('active',webSearchMode);
+  showToast(webSearchMode?'🌐 Web search mode ON':'Web search mode OFF','ok');
+};
+
+window.clearChat=function(){
+  if(!confirm('Clear this chat?'))return;
+  chatHistory=[];currentChatId=null;
+  const cv=document.getElementById('chat-view');cv.innerHTML='';
+  document.getElementById('dashboard').style.display='block';cv.style.display='none';
+  renderHistoryList();
+};
+
+let isLoading=false;
+window.sendMessage=async function(){
+  if(isLoading)return;
+  const inp=document.getElementById('user-input');
+  let txt=inp.value.trim();if(!txt)return;
+  if(!C.apiKey||C.apiKey.length<10){showToast('⚠️ Set your API key in Admin → AI Manager','warn');return;}
+
+  if(webSearchMode){txt='[Web Search Mode] '+txt;}
+
+  const cv=document.getElementById('chat-view');
+  document.getElementById('dashboard').style.display='none';cv.style.display='flex';
+
+  // Add user message
+  const userWrap=document.createElement('div');userWrap.className='bubble-wrap user-wrap';
+  const userBub=document.createElement('div');userBub.className='bubble user';userBub.textContent=txt;userWrap.appendChild(userBub);
+  if(C.showTimestamps==='true'){const meta=document.createElement('div');meta.className='bubble-meta right';meta.textContent=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});userWrap.appendChild(meta);}
+  cv.appendChild(userWrap);cv.scrollTop=cv.scrollHeight;
+
+  inp.value='';window.autoH(inp);updateCharCounter(inp);
+
+  // Add to history
+  const now=Date.now();
+  chatHistory.push({role:'user',content:txt,time:now});
+
+  isLoading=true;const sendBtn=document.getElementById('send-btn');if(sendBtn)sendBtn.disabled=true;
+  const aiEl=addTyping(cv);
+
+  try{
+    const provider=C.apiProvider||'groq',model=C.aiModel||'llama-3.3-70b-versatile';
+    let apiUrl,headers;
+    if(provider==='groq'){apiUrl='https://api.groq.com/openai/v1/chat/completions';headers={'Authorization':'Bearer '+C.apiKey,'Content-Type':'application/json'};}
+    else{apiUrl='https://openrouter.ai/api/v1/chat/completions';headers={'Authorization':'Bearer '+C.apiKey,'Content-Type':'application/json','HTTP-Referer':location.origin,'X-Title':C.brand||'Nimah OS X'};}
+
+    // Build context window
+    const ctxSize=parseInt(C.contextWindow)||10;
+    const msgs=[{role:'system',content:C.systemPrompt||'You are Nimah, a helpful AI assistant. Format responses in markdown when helpful.'}];
+    const histSlice=ctxSize>0?chatHistory.slice(-ctxSize*2):chatHistory;
+    histSlice.forEach(m=>{if(m.role!=='system')msgs.push({role:m.role,content:m.content});});
+
+    const res=await fetch(apiUrl,{method:'POST',headers,body:JSON.stringify({model,messages:msgs,max_tokens:parseInt(C.aiMaxTokens)||2048,temperature:parseFloat(C.aiTemp)||0.7})});
+    const data=await res.json();
+
+    if(!res.ok||data.error){
+      const errMsg=data.error?.message||data.error||('API error '+res.status);
+      aiEl.className='bubble err-bub';aiEl.innerHTML=`<i class="fa-solid fa-triangle-exclamation" style="margin-right:7px;"></i>${escHtml(errMsg)}`;
+      showToast('❌ '+errMsg.substring(0,60),'error');return;
+    }
+
+    const reply=data?.choices?.[0]?.message?.content||null;
+    if(!reply){aiEl.className='bubble err-bub';aiEl.textContent='No response received. Check your model selection.';return;}
+
+    // Replace typing bubble with proper bubble-wrap
+    const wrap=aiEl.parentElement;
+    if(wrap&&wrap.classList.contains('bubble-wrap')){
+      aiEl.className='bubble ai';
+      if(C.markdownEnabled!=='false'){aiEl.innerHTML=renderMarkdown(reply);}
+      else{aiEl.textContent=reply;}
+      if(C.showTimestamps==='true'){const meta=document.createElement('div');meta.className='bubble-meta';meta.textContent=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});wrap.appendChild(meta);}
+      const actions=makeBubbleActions(reply);wrap.appendChild(actions);
+    }else{
+      aiEl.className='bubble ai';
+      if(C.markdownEnabled!=='false'){aiEl.innerHTML=renderMarkdown(reply);}
+      else{aiEl.textContent=reply;}
+    }
+    cv.scrollTop=cv.scrollHeight;
+
+    // Add to history
+    chatHistory.push({role:'assistant',content:reply,time:Date.now()});
+
+    // TTS if enabled
+    if(C.voiceTts==='true'){setTimeout(()=>speakText(reply),100);}
+
+    // Save to Firebase
+    await saveConversation();
+
+  }catch(e){
+    aiEl.className='bubble err-bub';aiEl.textContent='Network error: '+e.message;
+    showToast('❌ Network error','error');
+  }finally{isLoading=false;if(sendBtn)sendBtn.disabled=false;}
+};
+
+function addTyping(cv){
+  const wrap=document.createElement('div');wrap.className='bubble-wrap ai-wrap';
+  const d=document.createElement('div');d.className='bubble ai';
+  d.innerHTML='<span class="typing"><span></span><span></span><span></span></span>';
+  wrap.appendChild(d);cv.appendChild(wrap);cv.scrollTop=cv.scrollHeight;return d;
+}
+
+// ── VOICE ──
+let recognition=null;
+window.startVoice=function(){
+  const mb=document.getElementById('mic-btn');
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR){showToast('⚠️ Voice not supported in this browser','warn');return;}
+  if(recognition){recognition.stop();recognition=null;mb.classList.remove('active');return;}
+  recognition=new SR();recognition.lang=C.voiceLang||'en-US';recognition.interimResults=true;recognition.continuous=false;
+  recognition.onstart=()=>mb.classList.add('active');
+  recognition.onresult=e=>{
+    let final='',interim='';
+    for(let i=e.resultIndex;i<e.results.length;i++){if(e.results[i].isFinal)final+=e.results[i][0].transcript;else interim+=e.results[i][0].transcript;}
+    const inp=document.getElementById('user-input');
+    if(final){inp.value+=(inp.value?' ':'')+final;window.autoH(inp);updateCharCounter(inp);if(C.voiceAutoSend==='true')window.sendMessage();}
+    else if(interim){// show interim in placeholder style
+      inp.placeholder=interim+'...';}
+  };
+  recognition.onend=()=>{mb.classList.remove('active');recognition=null;const inp=document.getElementById('user-input');inp.placeholder='Ask Nimah OS X anything...';};
+  recognition.onerror=()=>{mb.classList.remove('active');recognition=null;showToast('⚠️ Voice error — try again','warn');};
+  recognition.start();
+};
+
+// ── TOAST ──
+function showToast(msg,type){
+  const t=document.getElementById('toast');t.textContent=msg;
+  const styles={ok:{bg:'rgba(0,255,170,.1)',border:'rgba(0,255,170,.28)',color:'var(--online)'},error:{bg:'rgba(255,68,102,.1)',border:'rgba(255,68,102,.28)',color:'var(--err)'},warn:{bg:'rgba(255,179,0,.1)',border:'rgba(255,179,0,.28)',color:'var(--warn)'}};
+  const s=styles[type]||styles.ok;t.style.background=s.bg;t.style.border='1px solid '+s.border;t.style.color=s.color;
+  t.classList.add('show');clearTimeout(t._timer);t._timer=setTimeout(()=>t.classList.remove('show'),3500);
+}
+window.showToast=showToast;
+
+// SEO apply on load
+applySeoMeta();
+</script>
+</body>
+</html>
